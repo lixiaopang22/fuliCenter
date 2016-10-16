@@ -5,10 +5,10 @@
     <!-- 底部菜单栏-->
     <RadioGroup
         android:id="@+id/Bottom_Menu"
-        android:background="#daff33c2"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="70dp"
+        android:background="#19b351"
         android:orientation="horizontal">
         <RadioButton
             android:id="@+id/newGoods"
@@ -31,7 +31,7 @@
             style="@style/menu_item_style"
             android:button="@null"/>
         <RelativeLayout
-            style="@style/menu_item_style">
+            style="@style/style_menu_item">
             <RadioButton
                 android:id="@+id/Cart"
                 android:text="购物车"
@@ -58,10 +58,11 @@
                     android:padding="2dp"
                     android:textColor="#111111"
                     android:text="13"
-                    android:background="@color/text_color_hint"
+                    android:background="@drawable/cart_hint"
                     android:gravity="center"
                     android:layout_marginTop="0dp"
-                    android:visibility="gone"/>
+                    android:visibility="gone"
+                    />
             </LinearLayout>
         </RelativeLayout>
         <RadioButton
@@ -77,7 +78,7 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:layout_above="@+id/Bottom_Menu"
-        android:background="#D6DCDC"/>
+        android:background="#19b335"/>
     <RelativeLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
