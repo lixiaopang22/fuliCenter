@@ -1,10 +1,8 @@
 package com.example.administrator.fulicenter.bean;
 
-/**
- * Created by Winston on 2016/10/13.
- */
+import java.io.Serializable;
 
-public class NewGoodsBean {
+public class NewGoodsBean implements Serializable {
 
     /**
      * id : 1
@@ -12,20 +10,19 @@ public class NewGoodsBean {
      * catId : 0
      * goodsName : 趣味煮蛋模具
      * goodsEnglishName : Kotobuki
-     * goodsBrief : 将煮好的鸡蛋放到模具中，扣好卡扣，把蛋模放冰水，耐心等上10分钟，就可以变化成各种各样的形状，宝宝看了说不定胃口大开！
+     * goodsBrief : 将煮好的鸡蛋…
      * shopPrice : ￥110
      * currencyPrice : ￥140
      * promotePrice : ￥0
      * rankPrice : ￥0
-     * isPromote : false
-     * goodsThumb : 201509/thumb_img/7672_thumb_G_1442389445719.jpg
+     * promote : false
+     * goodsThumb : 201509/thumb_img/7672_thumb_G_14423845719.jpg
      * goodsImg : 201509/goods_img/7672_P_1442389445199.jpg
      * colorId : 4
      * colorName : 绿色
      * colorCode : #59d85c
      * colorUrl : 1
-     * addTime : 1442389445
-     * promote : false
+     * addTime : 1442389445    
      */
 
     private int id;
@@ -45,8 +42,7 @@ public class NewGoodsBean {
     private String colorName;
     private String colorCode;
     private String colorUrl;
-    private int addTime;
-    private boolean promote;
+    private String addTime;
 
     public int getId() {
         return id;
@@ -128,12 +124,12 @@ public class NewGoodsBean {
         this.rankPrice = rankPrice;
     }
 
-    public boolean isIsPromote() {
+    public boolean isPromote() {
         return isPromote;
     }
 
-    public void setIsPromote(boolean isPromote) {
-        this.isPromote = isPromote;
+    public void setPromote(boolean promote) {
+        this.isPromote = promote;
     }
 
     public String getGoodsThumb() {
@@ -184,28 +180,17 @@ public class NewGoodsBean {
         this.colorUrl = colorUrl;
     }
 
-    public int getAddTime() {
+    public String getAddTime() {
         return addTime;
     }
 
-    public void setAddTime(int addTime) {
+    public void setAddTime(String addTime) {
         this.addTime = addTime;
-    }
-
-    public boolean isPromote() {
-        return promote;
-    }
-
-    public void setPromote(boolean promote) {
-        this.promote = promote;
-    }
-
-    public NewGoodsBean() {
     }
 
     @Override
     public String toString() {
-        return "NewGoodsBean{" +
+        return "NewGoodBean{" +
                 "id=" + id +
                 ", goodsId=" + goodsId +
                 ", catId=" + catId +
@@ -216,15 +201,14 @@ public class NewGoodsBean {
                 ", currencyPrice='" + currencyPrice + '\'' +
                 ", promotePrice='" + promotePrice + '\'' +
                 ", rankPrice='" + rankPrice + '\'' +
-                ", isPromote=" + isPromote +
+                ", promote=" + isPromote +
                 ", goodsThumb='" + goodsThumb + '\'' +
                 ", goodsImg='" + goodsImg + '\'' +
                 ", colorId=" + colorId +
                 ", colorName='" + colorName + '\'' +
                 ", colorCode='" + colorCode + '\'' +
                 ", colorUrl='" + colorUrl + '\'' +
-                ", addTime=" + addTime +
-                ", promote=" + promote +
+                ", addTime='" + addTime + '\'' +
                 '}';
     }
 }

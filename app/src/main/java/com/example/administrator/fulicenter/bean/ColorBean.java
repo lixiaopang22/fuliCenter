@@ -1,14 +1,30 @@
 package com.example.administrator.fulicenter.bean;
 
-/**
- * Created by Winston on 2016/10/13.
- */
+import java.io.Serializable;
 
-public class ColorBean {
+public class ColorBean implements Serializable {
+
+    /**
+     * catId : 262
+     * colorId : 1
+     * colorName : 灰色
+     * colorCode : #959595
+     * colorImg : 121.197.1.20/images/201309/1380064809234134935.jpg
+     */
+
+    private int catId;
     private int colorId;
     private String colorName;
     private String colorCode;
-    private String colorUrl;
+    private String colorImg;
+
+    public int getCatId() {
+        return catId;
+    }
+
+    public void setCatId(int catId) {
+        this.catId = catId;
+    }
 
     public int getColorId() {
         return colorId;
@@ -34,11 +50,22 @@ public class ColorBean {
         this.colorCode = colorCode;
     }
 
-    public String getColorUrl() {
-        return colorUrl;
+    public String getColorImg() {
+        return colorImg;
     }
 
-    public void setColorUrl(String colorUrl) {
-        this.colorUrl = colorUrl;
+    public void setColorImg(String colorImg) {
+        this.colorImg = colorImg;
+    }
+
+    @Override
+    public String toString() {
+        return "ColorBean{" +
+                "catId=" + catId +
+                ", colorId=" + colorId +
+                ", colorName='" + colorName + '\'' +
+                ", colorCode='" + colorCode + '\'' +
+                ", colorImg='" + colorImg + '\'' +
+                '}';
     }
 }

@@ -1,16 +1,14 @@
 package com.example.administrator.fulicenter.bean;
 
-/**
- * Created by Winston on 2016/10/13.
- */
+import java.io.Serializable;
 
-public class CategoryChildBean {
+public class CategoryChildBean implements Serializable {
 
     /**
-     * id : 345
+     * id : 348
      * parentId : 344
-     * name : 热门
-     * imageUrl : cat_image/256_1.png
+     * name : 败姐推荐
+     * imageUrl : cat_image/256_4.png
      */
 
     private int id;
@@ -48,9 +46,6 @@ public class CategoryChildBean {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
-    }
-
-    public CategoryChildBean() {
     }
 
     @Override

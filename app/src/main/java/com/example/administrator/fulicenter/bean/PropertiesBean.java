@@ -1,13 +1,10 @@
 package com.example.administrator.fulicenter.bean;
 
-import java.util.List;
+import java.io.Serializable;
+import java.util.Arrays;
 
-/**
- * Created by Winston on 2016/10/13.
- */
+public class PropertiesBean implements Serializable {
 
-
-public  class PropertiesBean {
     private int id;
     private int goodsId;
     private int colorId;
@@ -15,14 +12,7 @@ public  class PropertiesBean {
     private String colorCode;
     private String colorImg;
     private String colorUrl;
-    /**
-     * pid : 7677
-     * imgId : 28296
-     * imgUrl : 201509/goods_img/7677_P_1442391216432.png
-     * thumbUrl : no_picture.gif
-     */
-
-    private List<AlbumsBean> albums;
+    private AlbumsBean[] albums;
 
     public int getId() {
         return id;
@@ -80,15 +70,12 @@ public  class PropertiesBean {
         this.colorUrl = colorUrl;
     }
 
-    public List<AlbumsBean> getAlbums() {
+    public AlbumsBean[] getAlbums() {
         return albums;
     }
 
-    public void setAlbums(List<AlbumsBean> albums) {
+    public void setAlbums(AlbumsBean[] albums) {
         this.albums = albums;
-    }
-
-    public PropertiesBean() {
     }
 
     @Override
@@ -101,7 +88,7 @@ public  class PropertiesBean {
                 ", colorCode='" + colorCode + '\'' +
                 ", colorImg='" + colorImg + '\'' +
                 ", colorUrl='" + colorUrl + '\'' +
-                ", albums=" + albums +
+                ", albums=" + Arrays.toString(albums) +
                 '}';
     }
 }
