@@ -46,7 +46,7 @@ public class GoodsAdapter extends Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if(getItemViewType(position)==1){
+        if(getItemViewType(position)==I.TYPE_FOOTER){
 
         }else{
             GoodsViewHolder vh= (GoodsViewHolder) holder;
