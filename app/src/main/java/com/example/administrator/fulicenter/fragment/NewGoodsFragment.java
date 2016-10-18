@@ -21,6 +21,7 @@ import com.example.administrator.fulicenter.utils.CommonUtils;
 import com.example.administrator.fulicenter.utils.ConvertUtils;
 import com.example.administrator.fulicenter.utils.I;
 import com.example.administrator.fulicenter.utils.L;
+import com.example.administrator.fulicenter.view.SpaceItemDecoration;
 
 import java.util.ArrayList;
 
@@ -151,6 +152,7 @@ public class NewGoodsFragment extends Fragment {
         recycleView.setLayoutManager(manager);
         recycleView.setHasFixedSize(true);
         recycleView.setAdapter(gAdapter);
+        recycleView.addItemDecoration(new SpaceItemDecoration(12));
     }
 
 }
