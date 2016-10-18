@@ -26,6 +26,16 @@ import butterknife.ButterKnife;
 public class GoodsAdapter extends Adapter {
     List<NewGoodsBean> nlist;
     Context mContext;
+    boolean isMore;
+
+    public boolean isMore() {
+        return isMore;
+    }
+
+    public void setMore(boolean more) {
+        isMore = more;
+        notifyDataSetChanged();
+    }
 
     public GoodsAdapter(Context context, ArrayList<NewGoodsBean> list) {
         mContext=context;
@@ -47,7 +57,8 @@ public class GoodsAdapter extends Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if(getItemViewType(position)==I.TYPE_FOOTER){
-
+            FooterViewHolder footerViewHolder= (FooterViewHolder) holder;
+            footerViewHolder.tvFooter.setText(getFootString());
         }else{
             GoodsViewHolder vh= (GoodsViewHolder) holder;
             NewGoodsBean goods=nlist.get(position);
@@ -55,6 +66,11 @@ public class GoodsAdapter extends Adapter {
             vh.tvGoodsName.setText(goods.getGoodsName());
             vh.tvGoodsPrice .setText(goods.getCurrencyPrice());
         }
+    }
+
+    private String getFootString() {
+        String str="没有更多数据...";
+        return str;
     }
 
     @Override
