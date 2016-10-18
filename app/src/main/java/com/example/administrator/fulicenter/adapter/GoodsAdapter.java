@@ -13,12 +13,14 @@ import com.example.administrator.fulicenter.R;
 import com.example.administrator.fulicenter.bean.NewGoodsBean;
 import com.example.administrator.fulicenter.utils.I;
 import com.example.administrator.fulicenter.utils.ImageLoader;
+import com.example.administrator.fulicenter.utils.MFGT;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Administrator on 2016/10/17.
@@ -65,12 +67,12 @@ public class GoodsAdapter extends Adapter {
             ImageLoader.downloadImg(mContext,vh.ivGoods,goods.getGoodsThumb());
             vh.tvGoodsName.setText(goods.getGoodsName());
             vh.tvGoodsPrice .setText(goods.getCurrencyPrice());
+            vh.linearLayoutGoods.setTag(goods.getGoodsId());
         }
     }
 
-    private String getFootString() {
-        String str="没有更多数据...";
-        return str;
+    private int getFootString() {
+        return isMore?R.string.load_more:R.string.no_more;
     }
 
     @Override
@@ -86,14 +88,18 @@ public class GoodsAdapter extends Adapter {
         return I.TYPE_ITEM;
     }
 
-    public void initData(ArrayList<NewGoodsBean> list) {
-        if(nlist!=null){
+    public void initData(ArrayList<NewGoodsBean> array2List) {
+        if (nlist!=null){
             nlist.clear();
         }
-        nlist.addAll(list);
+        nlist.addAll(array2List);
         notifyDataSetChanged();
     }
 
+    public void addData(ArrayList<NewGoodsBean> array2List) {
+        nlist.addAll(array2List);
+        notifyDataSetChanged();
+    }
 
     static class FooterViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tvFooter)
@@ -105,7 +111,7 @@ public class GoodsAdapter extends Adapter {
         }
     }
 
-    static class GoodsViewHolder extends RecyclerView.ViewHolder{
+     class GoodsViewHolder extends RecyclerView.ViewHolder{
         @BindView(R.id.ivGoods)
         ImageView ivGoods;
         @BindView(R.id.tvGoodsName)
@@ -118,6 +124,11 @@ public class GoodsAdapter extends Adapter {
         GoodsViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
+        }
+        @OnClick(R.id.linearLayout_goods)
+        public void OnItemClick(){
+            int goodsID = (int) linearLayoutGoods.getTag();
+            MFGT.goGoodsDetailActivity(mContext,goodsID);
         }
     }
 }

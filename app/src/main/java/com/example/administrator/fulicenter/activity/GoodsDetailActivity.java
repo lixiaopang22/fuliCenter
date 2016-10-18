@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.administrator.fulicenter.R;
+import com.example.administrator.fulicenter.bean.AlbumsBean;
 import com.example.administrator.fulicenter.bean.GoodsDetailsBean;
 import com.example.administrator.fulicenter.net.NetDao;
 import com.example.administrator.fulicenter.net.OkHttpUtils;
@@ -90,7 +91,26 @@ public class GoodsDetailActivity extends AppCompatActivity {
         tvGoodsNameName.setText(result.getGoodsName());
         tvGoodsCurrentPrice.setText(result.getCurrencyPrice());
         tvGoodsPrice.setText(result.getShopPrice());
-//        sal.startPlayLoop(indicator,getAlumImagUrl(result),getAlumCount(result));
-//        wvGoodBrief.loadDataWithBaseURL(null,result.getGoodsBrief(),I.TEXT_HTML,I.UTF_8,null);
+        sal.startPlayLoop(indicator,getAlumImagUrl(result),getAlumCount(result));
+        wvGoodBrief.loadDataWithBaseURL(null,result.getGoodsBrief(),I.TEXT_HTML,I.UTF_8,null);
+    }
+
+    private int getAlumCount(GoodsDetailsBean details) {
+        if (details.getProperties() != null && details.getProperties().length > 0) {
+            return details.getProperties()[0].getAlbums().length;
+        }
+        return 0;
+    }
+
+    private String[] getAlumImagUrl(GoodsDetailsBean details) {
+        String[] urls=new String[]{};
+        if(details.getProperties()!=null&&details.getProperties().length>0){
+            AlbumsBean[] mAlbumsBeen=details.getProperties()[0].getAlbums();
+            urls=new String[mAlbumsBeen.length];
+            for (int i=0;i<mAlbumsBeen.length;i++){
+                urls[i]=mAlbumsBeen[i].getImgUrl();
+            }
+        }
+        return urls;
     }
 }
