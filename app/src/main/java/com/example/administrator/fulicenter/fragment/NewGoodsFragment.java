@@ -17,6 +17,7 @@ import com.example.administrator.fulicenter.adapter.GoodsAdapter;
 import com.example.administrator.fulicenter.bean.NewGoodsBean;
 import com.example.administrator.fulicenter.net.NetDao;
 import com.example.administrator.fulicenter.net.OkHttpUtils;
+import com.example.administrator.fulicenter.utils.CommonUtils;
 import com.example.administrator.fulicenter.utils.ConvertUtils;
 import com.example.administrator.fulicenter.utils.I;
 import com.example.administrator.fulicenter.utils.L;
@@ -32,7 +33,8 @@ import butterknife.ButterKnife;
 public class NewGoodsFragment extends Fragment {
     MainActivity mContext;
     GoodsAdapter gAdapter;
-    ArrayList<NewGoodsBean> list;
+    ArrayList<NewGoodsBean> mList;
+    GridLayoutManager manager;
 
     @BindView(R.id.tvFresh)
     TextView tvFresh;
@@ -43,7 +45,7 @@ public class NewGoodsFragment extends Fragment {
 
     int pageId=1;
     public NewGoodsFragment() {
-        // Required empty public constructor
+
     }
 
 
@@ -53,28 +55,89 @@ public class NewGoodsFragment extends Fragment {
         View layout = inflater.inflate(R.layout.fragment_new_goods, container, false);
         ButterKnife.bind(this, layout);
         mContext= (MainActivity) getContext();
-        list=new ArrayList<>();
-        gAdapter=new GoodsAdapter(mContext,list);
+        mList=new ArrayList<>();
+        gAdapter=new GoodsAdapter(mContext,mList);
         initView();
         initData();
+        setListener();
         return layout;
     }
 
-    private void initData() {
+    private void setListener() {
+        setPullDownListener();
+        setPullUpListener();
+    }
+
+    private void setPullDownListener() {
+            srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    srl.setRefreshing(true);
+                    tvFresh.setVisibility(View.VISIBLE);
+                    pageId=1;
+                    downloadNewGoods(I.ACTION_PULL_DOWN);
+                }
+            });
+    }
+    private void setPullUpListener() {
+        recycleView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                int lastPosition = manager.findLastVisibleItemPosition();
+                if(newState==RecyclerView.SCROLL_STATE_IDLE
+                        && lastPosition==gAdapter.getItemCount()-1
+                        && gAdapter.isMore()){
+                    pageId++;
+                    downloadNewGoods(I.ACTION_PULL_UP);
+                }
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int firstPosition = manager.findFirstVisibleItemPosition();
+                srl.setEnabled(firstPosition==0);
+            }
+        });
+    }
+
+    private void downloadNewGoods(final int action) {
         NetDao.downloadNewGoods(mContext, pageId, new OkHttpUtils.OnCompleteListener<NewGoodsBean[]>() {
             @Override
             public void onSuccess(NewGoodsBean[] result) {
+                srl.setRefreshing(false);
+                tvFresh.setVisibility(View.GONE);
+                gAdapter.setMore(true);
                 if(result!=null&&result.length>0){
                     ArrayList<NewGoodsBean> array2List = ConvertUtils.array2List(result);
-                    gAdapter.initData(array2List);
+                    if(action==I.ACTION_DOWNLOAD||action==I.ACTION_PULL_DOWN){
+                        gAdapter.initData(array2List);
+                    }else{
+                        gAdapter.addData(array2List);
+                    }
+                    if(array2List.size()<I.PAGE_SIZE_DEFAULT){
+                        gAdapter.setMore(false);
+                    }
+                }
+                else {
+                    gAdapter.setMore(false);
                 }
             }
 
             @Override
             public void onError(String error) {
+                srl.setRefreshing(false);
+                tvFresh.setVisibility(View.GONE);
+                gAdapter.setMore(true);
+                CommonUtils.showLongToast(error);
                 L.e("error:"+error);
             }
         });
+    }
+
+    private void initData() {
+        downloadNewGoods(I.ACTION_DOWNLOAD);
     }
 
     private void initView() {
@@ -84,7 +147,7 @@ public class NewGoodsFragment extends Fragment {
                 getResources().getColor(R.color.google_red),
                 getResources().getColor(R.color.google_yellow)
         );
-        GridLayoutManager manager=new GridLayoutManager(mContext, I.COLUM_NUM);
+        manager=new GridLayoutManager(mContext, I.COLUM_NUM);
         recycleView.setLayoutManager(manager);
         recycleView.setHasFixedSize(true);
         recycleView.setAdapter(gAdapter);
