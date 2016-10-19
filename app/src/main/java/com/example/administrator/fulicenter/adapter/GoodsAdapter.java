@@ -14,6 +14,7 @@ import com.example.administrator.fulicenter.bean.NewGoodsBean;
 import com.example.administrator.fulicenter.utils.I;
 import com.example.administrator.fulicenter.utils.ImageLoader;
 import com.example.administrator.fulicenter.utils.MFGT;
+import com.example.administrator.fulicenter.view.FooterViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,15 +102,6 @@ public class GoodsAdapter extends Adapter {
         notifyDataSetChanged();
     }
 
-    static class FooterViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.tvFooter)
-        TextView tvFooter;
-
-        FooterViewHolder(View view) {
-            super(view);
-            ButterKnife.bind(this, view);
-        }
-    }
 
      class GoodsViewHolder extends RecyclerView.ViewHolder{
         @BindView(R.id.ivGoods)
