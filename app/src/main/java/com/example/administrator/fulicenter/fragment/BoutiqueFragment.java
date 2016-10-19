@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,7 +13,7 @@ import android.widget.TextView;
 
 import com.example.administrator.fulicenter.R;
 import com.example.administrator.fulicenter.activity.MainActivity;
-import com.example.administrator.fulicenter.adapter.BoutiuqeAdapter;
+import com.example.administrator.fulicenter.adapter.BoutiqueAdapter;
 import com.example.administrator.fulicenter.bean.BoutiqueBean;
 import com.example.administrator.fulicenter.net.NetDao;
 import com.example.administrator.fulicenter.net.OkHttpUtils;
@@ -42,7 +41,7 @@ public class BoutiqueFragment extends Fragment {
 
     LinearLayoutManager llm;
     MainActivity mContext;
-    BoutiuqeAdapter bAdapter;
+    BoutiqueAdapter bAdapter;
     ArrayList<BoutiqueBean> mlist;
 
     @Nullable
@@ -52,10 +51,26 @@ public class BoutiqueFragment extends Fragment {
         ButterKnife.bind(this, layout);
         mContext= (MainActivity) getContext();
         mlist=new ArrayList<>();
-        bAdapter=new BoutiuqeAdapter(mContext,mlist);
+        bAdapter=new BoutiqueAdapter(mContext,mlist);
         initView();
         initData();
+        setListener();
         return layout;
+    }
+
+    private void setListener() {
+        setPullDownListener();
+    }
+
+    private void setPullDownListener() {
+        srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                srl.setRefreshing(true);
+                tvFresh.setVisibility(View.VISIBLE);
+                downloadBoutique(I.ACTION_DOWNLOAD);
+            }
+        });
     }
 
     private void initData() {
@@ -103,7 +118,7 @@ public class BoutiqueFragment extends Fragment {
                 getResources().getColor(R.color.google_red),
                 getResources().getColor(R.color.google_yellow)
         );
-        llm=new GridLayoutManager(mContext, I.COLUM_NUM);
+        llm=new LinearLayoutManager(mContext);
         recycleView.setLayoutManager(llm);
         recycleView.setHasFixedSize(true);
         recycleView.setAdapter(bAdapter);
