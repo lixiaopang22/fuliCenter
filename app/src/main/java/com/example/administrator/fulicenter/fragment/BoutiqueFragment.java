@@ -2,7 +2,6 @@ package com.example.administrator.fulicenter.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,7 +30,7 @@ import butterknife.ButterKnife;
 /**
  * Created by Administrator on 2016/10/19.
  */
-public class BoutiqueFragment extends Fragment {
+public class BoutiqueFragment extends BaseFragment {
     @BindView(R.id.tvFresh)
     TextView tvFresh;
     @BindView(R.id.recycleView)
@@ -52,13 +51,12 @@ public class BoutiqueFragment extends Fragment {
         mContext= (MainActivity) getContext();
         mlist=new ArrayList<>();
         bAdapter=new BoutiqueAdapter(mContext,mlist);
-        initView();
-        initData();
-        setListener();
+        super.onCreateView(inflater,container,savedInstanceState);
         return layout;
     }
 
-    private void setListener() {
+    @Override
+    protected void setListener() {
         setPullDownListener();
     }
 
@@ -73,7 +71,8 @@ public class BoutiqueFragment extends Fragment {
         });
     }
 
-    private void initData() {
+    @Override
+    protected void initData() {
         downloadBoutique(I.ACTION_DOWNLOAD);
     }
 
@@ -111,7 +110,8 @@ public class BoutiqueFragment extends Fragment {
         });
     }
 
-    private void initView() {
+    @Override
+    protected void initView() {
         srl.setColorSchemeColors(
                 getResources().getColor(R.color.google_blue),
                 getResources().getColor(R.color.google_green),
