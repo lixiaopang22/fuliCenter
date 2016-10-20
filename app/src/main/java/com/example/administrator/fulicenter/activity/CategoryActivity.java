@@ -5,6 +5,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.administrator.fulicenter.R;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class CategoryActivity extends BaseActivity {
 
@@ -32,13 +34,22 @@ public class CategoryActivity extends BaseActivity {
     @BindView(R.id.srl)
     SwipeRefreshLayout srl;
 
-    GoodsAdapter gAdapter;
+    GoodsAdapter  gAdapter;
     CategoryActivity mContext;
     ArrayList<NewGoodsBean> mList;
     GridLayoutManager manager;
 
     int pageId;
     int catId;
+    @BindView(R.id.sort_price)
+    Button sortPrice;
+    @BindView(R.id.sort_addTime)
+    Button sortAddTime;
+
+    boolean addTimeAsc=false;
+    boolean priceAce=false;
+    int sortBy=I.SORT_BY_ADDTIME_DESC;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_category);
@@ -46,8 +57,8 @@ public class CategoryActivity extends BaseActivity {
         mContext = this;
         mList = new ArrayList<>();
         gAdapter = new GoodsAdapter(mContext, mList);
-        catId=getIntent().getIntExtra(I.CategoryChild.CAT_ID,0);
-        if(catId==0){
+        catId = getIntent().getIntExtra(I.CategoryChild.CAT_ID, 0);
+        if (catId == 0) {
             finish();
         }
         super.onCreate(savedInstanceState);
@@ -146,5 +157,28 @@ public class CategoryActivity extends BaseActivity {
     @Override
     protected void initData() {
         downLoadCategoryGoods(I.ACTION_DOWNLOAD);
+    }
+
+    @OnClick({R.id.sort_price, R.id.sort_addTime})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.sort_price:
+                if(priceAce){
+                    sortBy=I.SORT_BY_ADDTIME_ASC;
+                }else{
+                    sortBy=I.SORT_BY_ADDTIME_DESC;
+                }
+                priceAce=!priceAce;
+                break;
+            case R.id.sort_addTime:
+                if(addTimeAsc){
+                    sortBy=I.SORT_BY_ADDTIME_ASC;
+                }else{
+                    sortBy=I.SORT_BY_ADDTIME_DESC;
+                }
+                addTimeAsc=!addTimeAsc;
+                break;
+        }
+        gAdapter.setSortBy(sortBy);
     }
 }
