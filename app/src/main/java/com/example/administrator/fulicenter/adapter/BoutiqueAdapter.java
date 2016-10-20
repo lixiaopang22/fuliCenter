@@ -25,7 +25,7 @@ import butterknife.ButterKnife;
 /**
  * Created by Administrator on 2016/10/19.
  */
-public class BoutiuqeAdapter extends Adapter {
+public class BoutiqueAdapter extends Adapter {
     Context mContext;
     ArrayList<BoutiqueBean> mlist;
 
@@ -40,7 +40,7 @@ public class BoutiuqeAdapter extends Adapter {
         notifyDataSetChanged();
     }
 
-    public BoutiuqeAdapter(Context context, ArrayList<BoutiqueBean> list) {
+    public BoutiqueAdapter(Context context, ArrayList<BoutiqueBean> list) {
         mContext=context;
         mlist=new ArrayList<>();
         mlist.addAll(list);
