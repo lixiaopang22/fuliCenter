@@ -1,7 +1,6 @@
 package com.example.administrator.fulicenter.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,7 +19,7 @@ import com.example.administrator.fulicenter.view.SlideAutoLoopView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class GoodsDetailActivity extends AppCompatActivity {
+public class GoodsDetailActivity extends BaseActivity {
 
     @BindView(R.id.backClickArea)
     LinearLayout backClickArea;
@@ -43,7 +42,6 @@ public class GoodsDetailActivity extends AppCompatActivity {
     GoodsDetailActivity mContext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goods_detail);
         ButterKnife.bind(this);
         goodsId = getIntent().getIntExtra(I.GoodsDetails.KEY_GOODS_ID, 0);
@@ -52,20 +50,21 @@ public class GoodsDetailActivity extends AppCompatActivity {
             finish();
         }
         mContext=this;
-        initView();
-        initData();
-        setListener();
+        super.onCreate(savedInstanceState);
     }
 
-    private void setListener() {
-
-    }
-
-    private void initView() {
+    @Override
+    protected void setListener() {
 
     }
 
-    private void initData() {
+    @Override
+    protected void initView() {
+
+    }
+
+    @Override
+    protected void initData() {
         NetDao.downLoadGoodsDetails(mContext, goodsId, new OkHttpUtils.OnCompleteListener<GoodsDetailsBean>() {
             @Override
             public void onSuccess(GoodsDetailsBean result) {
