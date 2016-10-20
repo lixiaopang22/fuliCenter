@@ -12,6 +12,7 @@ import com.example.administrator.fulicenter.R;
 import com.example.administrator.fulicenter.bean.CategoryChildBean;
 import com.example.administrator.fulicenter.bean.CategoryGroupBean;
 import com.example.administrator.fulicenter.utils.ImageLoader;
+import com.example.administrator.fulicenter.utils.MFGT;
 
 import java.util.ArrayList;
 
@@ -103,10 +104,17 @@ public class CategoryAdapter extends BaseExpandableListAdapter {
         } else {
             childHolder= (ChildViewHolder) view.getTag();
         }
-        CategoryChildBean child = getChild(groupPosition, childPosition);
+        final CategoryChildBean child = getChild(groupPosition, childPosition);
         if(child!=null){
             ImageLoader.downloadImg(mContext,childHolder.ivCategoryChild,child.getImageUrl());
             childHolder.tvChildName.setText(child.getName());
+            childHolder.layoutCategoryChild.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    MFGT.goCategoryActivity(mContext,child.getId());
+
+                }
+            });
         }
         return view;
     }
