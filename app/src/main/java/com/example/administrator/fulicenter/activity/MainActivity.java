@@ -8,6 +8,7 @@ import android.widget.RadioButton;
 
 import com.example.administrator.fulicenter.R;
 import com.example.administrator.fulicenter.fragment.BoutiqueFragment;
+import com.example.administrator.fulicenter.fragment.CategoryFragment;
 import com.example.administrator.fulicenter.fragment.NewGoodsFragment;
 import com.example.administrator.fulicenter.utils.L;
 
@@ -33,6 +34,7 @@ public class MainActivity extends BaseActivity {
     Fragment [] mFragment;
     NewGoodsFragment mNewGoodsFragment;
     BoutiqueFragment mBoutiqueFragment;
+    CategoryFragment mCategoryFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_main);
@@ -45,13 +47,17 @@ public class MainActivity extends BaseActivity {
         mFragment=new Fragment[5];
         mNewGoodsFragment=new NewGoodsFragment();
         mBoutiqueFragment=new BoutiqueFragment();
+        mCategoryFragment=new CategoryFragment();
         mFragment[0]=mNewGoodsFragment;
         mFragment[1]=mBoutiqueFragment;
+        mFragment[2]=mCategoryFragment;
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.fragment_container,mNewGoodsFragment)
                 .add(R.id.fragment_container,mBoutiqueFragment)
+                .add(R.id.fragment_container,mCategoryFragment)
                 .hide(mBoutiqueFragment)
+                .hide(mCategoryFragment)
                 .show(mNewGoodsFragment)
                 .commit();
     }
