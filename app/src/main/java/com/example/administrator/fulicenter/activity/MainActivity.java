@@ -2,18 +2,19 @@ package com.example.administrator.fulicenter.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.RadioButton;
 
 import com.example.administrator.fulicenter.R;
+import com.example.administrator.fulicenter.fragment.BoutiqueFragment;
 import com.example.administrator.fulicenter.fragment.NewGoodsFragment;
 import com.example.administrator.fulicenter.utils.L;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @BindView(R.id.newGoods)
     RadioButton newGoods;
@@ -27,36 +28,51 @@ public class MainActivity extends AppCompatActivity {
     RadioButton Center;
 
     int index;
+    int currentIndex;
     RadioButton [] rbs;
     Fragment [] mFragment;
     NewGoodsFragment mNewGoodsFragment;
+    BoutiqueFragment mBoutiqueFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         L.i("main", "MainActivity onCreate()");
-        initView();
-        initFragment();
+        super.onCreate(savedInstanceState);
     }
 
     private void initFragment() {
         mFragment=new Fragment[5];
         mNewGoodsFragment=new NewGoodsFragment();
+        mBoutiqueFragment=new BoutiqueFragment();
+        mFragment[0]=mNewGoodsFragment;
+        mFragment[1]=mBoutiqueFragment;
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.fragment_container,mNewGoodsFragment)
+                .add(R.id.fragment_container,mBoutiqueFragment)
+                .hide(mBoutiqueFragment)
                 .show(mNewGoodsFragment)
                 .commit();
     }
-
-    private void initView() {
+    @Override
+    protected void initView() {
         rbs=new RadioButton[5];
         rbs [0]=newGoods;
         rbs [1]=Boutique;
         rbs [2]=Category;
         rbs [3]=Cart;
         rbs [4]=Center;
+    }
+
+    @Override
+    protected void initData() {
+        initFragment();
+    }
+
+    @Override
+    protected void setListener() {
+
     }
 
     public void onCheckedChange(View view) {
@@ -77,7 +93,20 @@ public class MainActivity extends AppCompatActivity {
                 index=4;
                 break;
         }
+        setFragmnet();
+    }
+
+    private void setFragmnet() {
+        if(index!=currentIndex){
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.hide(mFragment[currentIndex]);
+            if(!mFragment[index].isAdded()){
+                ft.add(R.id.fragment_container,mFragment[index]);
+            }
+            ft.show(mFragment[index]).commit();
+        }
         setRadioButtonStatus();
+        currentIndex=index;
     }
 
     private void setRadioButtonStatus() {
