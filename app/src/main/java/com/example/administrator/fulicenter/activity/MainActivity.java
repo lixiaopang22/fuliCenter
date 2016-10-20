@@ -93,10 +93,10 @@ public class MainActivity extends BaseActivity {
                 index=4;
                 break;
         }
-        setFragmnet();
+        setFragment();
     }
 
-    private void setFragmnet() {
+    private void setFragment() {
         if(index!=currentIndex){
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.hide(mFragment[currentIndex]);
