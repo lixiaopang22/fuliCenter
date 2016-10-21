@@ -1,5 +1,6 @@
 package com.example.administrator.fulicenter.activity;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -161,21 +162,30 @@ public class CategoryActivity extends BaseActivity {
 
     @OnClick({R.id.sort_price, R.id.sort_addTime})
     public void onClick(View view) {
+        Drawable right;
         switch (view.getId()) {
             case R.id.sort_price:
                 if(priceAce){
                     sortBy=I.SORT_BY_ADDTIME_ASC;
+                    right=getResources().getDrawable(R.mipmap.arrow_order_up);
                 }else{
                     sortBy=I.SORT_BY_ADDTIME_DESC;
+                    right=getResources().getDrawable(R.mipmap.arrow_order_down);
                 }
+                right.setBounds(0,0,right.getIntrinsicWidth(),right.getIntrinsicHeight());
+                sortPrice.setCompoundDrawablesWithIntrinsicBounds(null,null,right,null);
                 priceAce=!priceAce;
                 break;
             case R.id.sort_addTime:
                 if(addTimeAsc){
                     sortBy=I.SORT_BY_ADDTIME_ASC;
+                    right=getResources().getDrawable(R.mipmap.arrow_order_up);
                 }else{
                     sortBy=I.SORT_BY_ADDTIME_DESC;
+                    right=getResources().getDrawable(R.mipmap.arrow_order_down);
                 }
+                right.setBounds(0,0,right.getIntrinsicWidth(),right.getIntrinsicHeight());
+                sortAddTime.setCompoundDrawablesWithIntrinsicBounds(null,null,right,null);
                 addTimeAsc=!addTimeAsc;
                 break;
         }
