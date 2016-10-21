@@ -13,11 +13,13 @@ import com.example.administrator.fulicenter.net.OkHttpUtils;
 import com.example.administrator.fulicenter.utils.CommonUtils;
 import com.example.administrator.fulicenter.utils.I;
 import com.example.administrator.fulicenter.utils.L;
+import com.example.administrator.fulicenter.utils.MFGT;
 import com.example.administrator.fulicenter.view.FlowIndicator;
 import com.example.administrator.fulicenter.view.SlideAutoLoopView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class GoodsDetailActivity extends BaseActivity {
 
@@ -40,16 +42,17 @@ public class GoodsDetailActivity extends BaseActivity {
 
     int goodsId;
     GoodsDetailActivity mContext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_goods_detail);
         ButterKnife.bind(this);
         goodsId = getIntent().getIntExtra(I.GoodsDetails.KEY_GOODS_ID, 0);
         L.e("main", "goodsID=" + goodsId);
-        if(goodsId==0){
+        if (goodsId == 0) {
             finish();
         }
-        mContext=this;
+        mContext = this;
         super.onCreate(savedInstanceState);
     }
 
@@ -68,10 +71,10 @@ public class GoodsDetailActivity extends BaseActivity {
         NetDao.downLoadGoodsDetails(mContext, goodsId, new OkHttpUtils.OnCompleteListener<GoodsDetailsBean>() {
             @Override
             public void onSuccess(GoodsDetailsBean result) {
-                L.i("details:"+result);
-                if(result!=null){
+                L.i("details:" + result);
+                if (result != null) {
                     showGoodsDetails(result);
-                }else{
+                } else {
                     finish();
                 }
             }
@@ -79,7 +82,7 @@ public class GoodsDetailActivity extends BaseActivity {
             @Override
             public void onError(String error) {
                 finish();
-                L.e("details:"+error);
+                L.e("details:" + error);
                 CommonUtils.showLongToast(error);
             }
         });
@@ -90,8 +93,8 @@ public class GoodsDetailActivity extends BaseActivity {
         tvGoodsNameName.setText(result.getGoodsName());
         tvGoodsCurrentPrice.setText(result.getCurrencyPrice());
         tvGoodsPrice.setText(result.getShopPrice());
-        sal.startPlayLoop(indicator,getAlumImagUrl(result),getAlumCount(result));
-        wvGoodBrief.loadDataWithBaseURL(null,result.getGoodsBrief(),I.TEXT_HTML,I.UTF_8,null);
+        sal.startPlayLoop(indicator, getAlumImagUrl(result), getAlumCount(result));
+        wvGoodBrief.loadDataWithBaseURL(null, result.getGoodsBrief(), I.TEXT_HTML, I.UTF_8, null);
     }
 
     private int getAlumCount(GoodsDetailsBean details) {
@@ -102,14 +105,19 @@ public class GoodsDetailActivity extends BaseActivity {
     }
 
     private String[] getAlumImagUrl(GoodsDetailsBean details) {
-        String[] urls=new String[]{};
-        if(details.getProperties()!=null&&details.getProperties().length>0){
-            AlbumsBean[] mAlbumsBeen=details.getProperties()[0].getAlbums();
-            urls=new String[mAlbumsBeen.length];
-            for (int i=0;i<mAlbumsBeen.length;i++){
-                urls[i]=mAlbumsBeen[i].getImgUrl();
+        String[] urls = new String[]{};
+        if (details.getProperties() != null && details.getProperties().length > 0) {
+            AlbumsBean[] mAlbumsBeen = details.getProperties()[0].getAlbums();
+            urls = new String[mAlbumsBeen.length];
+            for (int i = 0; i < mAlbumsBeen.length; i++) {
+                urls[i] = mAlbumsBeen[i].getImgUrl();
             }
         }
         return urls;
+    }
+
+    @OnClick(R.id.backClickArea)
+    public void onClick() {
+        MFGT.finish(this);
     }
 }

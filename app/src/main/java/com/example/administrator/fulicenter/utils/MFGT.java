@@ -6,10 +6,13 @@ import android.content.Intent;
 
 import com.example.administrator.fulicenter.R;
 import com.example.administrator.fulicenter.activity.BoutiqueChildActivity;
-import com.example.administrator.fulicenter.activity.CategoryActivity;
+import com.example.administrator.fulicenter.activity.CategoryChildActivity;
 import com.example.administrator.fulicenter.activity.GoodsDetailActivity;
 import com.example.administrator.fulicenter.activity.MainActivity;
 import com.example.administrator.fulicenter.bean.BoutiqueBean;
+import com.example.administrator.fulicenter.bean.CategoryChildBean;
+
+import java.util.ArrayList;
 
 
 public class MFGT {
@@ -41,10 +44,12 @@ public class MFGT {
         intent.putExtra(I.Boutique.CAT_ID,bean);
         startActivity(context,intent);
     }
-    public static void goCategoryActivity(Context context,int catId){
+    public static void goCategoryChildActivity(Context context, int catId, String groupName, ArrayList<CategoryChildBean> list){
         Intent intent = new Intent();
-        intent.setClass(context, CategoryActivity.class);
+        intent.setClass(context, CategoryChildActivity.class);
         intent.putExtra(I.CategoryChild.CAT_ID,catId);
+        intent.putExtra(I.CategoryGroup.NAME,groupName);
+        intent.putExtra(I.CategoryChild.ID,list);
         startActivity(context,intent);
     }
 }

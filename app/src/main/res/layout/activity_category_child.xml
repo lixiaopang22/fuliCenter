@@ -3,5 +3,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <include layout="@layout/common_head_title"/>
+
     <include layout="@layout/fragment_new_goods"/>
 </LinearLayout>

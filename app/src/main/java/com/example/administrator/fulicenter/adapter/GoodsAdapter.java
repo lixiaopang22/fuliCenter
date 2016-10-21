@@ -3,6 +3,7 @@ package com.example.administrator.fulicenter.adapter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.Adapter;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -32,7 +33,7 @@ public class GoodsAdapter extends Adapter {
     List<NewGoodsBean> nlist;
     Context mContext;
     boolean isMore;
-    int sortBy=I.SORT_BY_ADDTIME_ASC;
+    int sortBy=I.SORT_BY_ADDTIME_DESC;
 
     public void setSortBy(int sortBy) {
         this.sortBy = sortBy;
@@ -59,9 +60,11 @@ public class GoodsAdapter extends Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder viewHolder = null;
         if (viewType == I.TYPE_FOOTER) {
-            viewHolder = new FooterViewHolder(View.inflate(mContext, R.layout.item_footer, null));
+            viewHolder = new FooterViewHolder(LayoutInflater.from(mContext)
+                    .inflate(R.layout.item_footer, parent, false));
         } else {
-            viewHolder = new GoodsViewHolder(View.inflate(mContext, R.layout.item_goods, null));
+            viewHolder = new GoodsViewHolder(LayoutInflater.from(mContext)
+                    .inflate(R.layout.item_goods, parent, false));
         }
         return viewHolder;
     }
