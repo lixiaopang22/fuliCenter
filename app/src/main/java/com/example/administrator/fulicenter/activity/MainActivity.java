@@ -6,11 +6,13 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.RadioButton;
 
+import com.example.administrator.fulicenter.FuLiCenterApplication;
 import com.example.administrator.fulicenter.R;
 import com.example.administrator.fulicenter.fragment.BoutiqueFragment;
 import com.example.administrator.fulicenter.fragment.CategoryFragment;
 import com.example.administrator.fulicenter.fragment.NewGoodsFragment;
 import com.example.administrator.fulicenter.utils.L;
+import com.example.administrator.fulicenter.utils.MFGT;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -96,7 +98,11 @@ public class MainActivity extends BaseActivity {
                 index=3;
                 break;
             case R.id.Center :
-                index=4;
+                if(FuLiCenterApplication.getUsername()==null){
+                    MFGT.gotoLogin(this);
+                }else {
+                    index = 4;
+                }
                 break;
         }
         setFragment();
