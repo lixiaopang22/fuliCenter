@@ -13,6 +13,7 @@ public interface I {
     /** 每行显示的数量columNum*/
     int COLUM_NUM = 2;
 
+    int REQUEST_CODE_REGISTER=101;
 
     /** 表示列表项布局的两种类型*/
     int TYPE_ITEM=0;
