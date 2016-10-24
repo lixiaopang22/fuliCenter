@@ -14,6 +14,7 @@ public interface I {
     int COLUM_NUM = 2;
 
     int REQUEST_CODE_REGISTER=101;
+    int REQUEST_CODE_LOGIN=102;
 
     /** 表示列表项布局的两种类型*/
     int TYPE_ITEM=0;
@@ -325,6 +326,7 @@ public interface I {
     int MSG_UNKNOW=999;//未知错误
     int MSG_ILLEGAL_REQUEST=-1;    //非法请求
 
+    String AVATAR_SUFFIX="m_avatar_suffix";
     /** 上传头像图片的类型：user_avatar或group_icon */
     String AVATAR_TYPE = "avatarType";
     /** 用户的账号或群组的环信id */
@@ -416,5 +418,8 @@ public interface I {
     /** 下载精选首页图像的接口*/
     String DOWNLOAD_IMG_URL= I.SERVER_ROOT+
             REQUEST_DOWNLOAD_IMAGE+I.QUESTION+ IMAGE_URL+"=";
+    /**下载用户图像*/
+    String DOWNLOAD_AVATAR_URL=I.SERVER_ROOT +
+            REQUEST_DOWNLOAD_AVATAR +I.QUESTION;
 
 }
