@@ -26,4 +26,7 @@
     <string name="login_fail_unknow_user">用户名不存在</string>
     <string name="login_fail_error_password">登录密码错误</string>
     <string name="user_database_error">数据库操作异常</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
