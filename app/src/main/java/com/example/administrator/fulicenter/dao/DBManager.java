@@ -12,10 +12,10 @@ import com.example.administrator.fulicenter.bean.User;
  */
 public class DBManager {
     private static DBManager dbMg=new DBManager();
-    private DAOopenHelper dbHelper;
+    private DAOpenHelper dbHelper;
     //打开数据库的操作
     void onInit(Context context) {
-        dbHelper = new DAOopenHelper(context);
+        dbHelper = new DAOpenHelper(context);
     }
     //synchronized表示只能操作其中一条指令
     public static synchronized DBManager getInstance(){
@@ -36,7 +36,7 @@ public class DBManager {
         values.put(UserDao.USER_COLUMN_AVATAR_ID,user.getMavatarId());
         values.put(UserDao.USER_COLUMN_AVATAR_TYPE,user.getMavatarType());
         values.put(UserDao.USER_COLUMN_AVATAR_PATH,user.getMavatarPath());
-        values.put(UserDao.USER_COLUMN_AVATART_SUFFIX,user.getMavatarSuffix());
+        values.put(UserDao.USER_COLUMN_AVATAR_SUFFIX,user.getMavatarSuffix());
         values.put(UserDao.USER_COLUMN_AVATAR_LASTUPDATE,user.getMavatarLastUpdateTime());
         if(db.isOpen()){
             //重新登录或者改密码后重新覆盖，成功后返回-1
@@ -44,9 +44,9 @@ public class DBManager {
         }
         return false;
     }
-    public User getUser(String username) {
-        SQLiteDatabase db=dbHelper.getWritableDatabase();
-        String sql="select * from "+UserDao.USER_TABLE_NAME + "where "+UserDao.USER_COLUMN_NAME + "=?";
+    public synchronized User getUser(String username) {
+        SQLiteDatabase db=dbHelper.getReadableDatabase();
+        String sql="select * from "+UserDao.USER_TABLE_NAME + " where "+UserDao.USER_COLUMN_NAME + "=?";
         User user=null;
         //结果集，封装到User里
         Cursor cursor=db.rawQuery(sql,new String[]{username});
@@ -57,17 +57,17 @@ public class DBManager {
             user.setMavatarId(cursor.getInt(cursor.getColumnIndex(UserDao.USER_COLUMN_AVATAR_ID)));
             user.setMavatarType(cursor.getInt(cursor.getColumnIndex(UserDao.USER_COLUMN_AVATAR_TYPE)));
             user.setMavatarPath(cursor.getString(cursor.getColumnIndex(UserDao.USER_COLUMN_AVATAR_PATH)));
-            user.setMavatarSuffix(cursor.getString(cursor.getColumnIndex(UserDao.USER_COLUMN_AVATART_SUFFIX)));
+            user.setMavatarSuffix(cursor.getString(cursor.getColumnIndex(UserDao.USER_COLUMN_AVATAR_SUFFIX)));
             user.setMavatarLastUpdateTime(cursor.getString(cursor.getColumnIndex(UserDao.USER_COLUMN_AVATAR_LASTUPDATE)));
             return user;
         }
         return user;
     }
 
-    public boolean updateUser(User user) {
-        int count=1;
+    public synchronized boolean updateUser(User user) {
+        int count=-1;
         SQLiteDatabase db=dbHelper.getWritableDatabase();
-        String sql=UserDao.USER_TABLE_NAME+"=?";
+        String sql=UserDao.USER_COLUMN_NAME + "=?";
         ContentValues values=new ContentValues();
         values.put(UserDao.USER_COLUMN_NICK,user.getMuserNick());
         if(db.isOpen()){
@@ -75,5 +75,4 @@ public class DBManager {
         }
         return count>0;
     }
-
 }

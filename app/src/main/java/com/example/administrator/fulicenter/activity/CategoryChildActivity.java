@@ -55,6 +55,7 @@ public class CategoryChildActivity extends BaseActivity {
     int sortBy = I.SORT_BY_ADDTIME_DESC;
     @BindView(R.id.btnCatChildFilter)
     CatChildFilterButton btnCatChildFilter;
+
     String mGroupName;
     ArrayList<CategoryChildBean> mChildList;
 
@@ -183,9 +184,10 @@ public class CategoryChildActivity extends BaseActivity {
                     sortBy = I.SORT_BY_ADDTIME_DESC;
                     right = getResources().getDrawable(R.mipmap.arrow_order_down);
                 }
+                priceAce = !priceAce;
+                assert right != null;
                 right.setBounds(0, 0, right.getIntrinsicWidth(), right.getIntrinsicHeight());
                 sortPrice.setCompoundDrawablesWithIntrinsicBounds(null, null, right, null);
-                priceAce = !priceAce;
                 break;
             case R.id.sort_addTime:
                 if (addTimeAsc) {
@@ -195,6 +197,7 @@ public class CategoryChildActivity extends BaseActivity {
                     sortBy = I.SORT_BY_ADDTIME_DESC;
                     right = getResources().getDrawable(R.mipmap.arrow_order_down);
                 }
+                assert right != null;
                 right.setBounds(0, 0, right.getIntrinsicWidth(), right.getIntrinsicHeight());
                 sortAddTime.setCompoundDrawablesWithIntrinsicBounds(null, null, right, null);
                 addTimeAsc = !addTimeAsc;

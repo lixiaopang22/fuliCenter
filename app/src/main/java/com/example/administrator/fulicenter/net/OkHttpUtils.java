@@ -479,5 +479,4 @@ public class OkHttpUtils<T> {
             mOkHttpClient=null;
         }
     }
-
 }
