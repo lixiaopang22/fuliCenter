@@ -1,5 +1,7 @@
 package com.example.administrator.fulicenter.bean;
 
+import com.example.administrator.fulicenter.utils.I;
+
 /**
  * Created by Administrator on 2016/10/24.
  */
@@ -56,7 +58,7 @@ public class User {
     }
 
     public String getMavatarSuffix() {
-        return mavatarSuffix;
+        return mavatarSuffix!=null?mavatarSuffix: I.AVATAR_SUFFIX_JPG;
     }
 
     public void setMavatarSuffix(String mavatarSuffix) {
