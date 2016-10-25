@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <include layout="@layout/common_title"/>
+    <RelativeLayout
+        android:background="@color/white"
+        android:id="@+id/rl_personal_useravatar"
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="80dp">
+        <TextView
+            android:id="@+id/tvUser_image"
+            android:text="用户图像"
+            android:textSize="20sp"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/ivUser_Image"
+            android:src="@drawable/nopic"
+            android:layout_width="80dip"
+            android:layout_height="80dip"
+            android:layout_toStartOf="@+id/layout_image1" />
+        <ImageView
+            android:src="@drawable/right_arrow_icon"
+            android:layout_width="25dip"
+            android:layout_height="25dip"
+            android:layout_marginRight="10dp"
+            android:layout_alignTop="@+id/tvUser_image"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/layout_image1" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_personal_username"
+        android:background="@color/white"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+        <TextView
+            android:id="@+id/tvUsername"
+            android:text="用户名"
+            android:textSize="20sp"
+            android:layout_marginLeft="10sp"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tvUser_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="a1234567"
+            android:textSize="20sp"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/layout_image2" />
+        <ImageView
+            android:src="@drawable/right_arrow_icon"
+            android:layout_width="25dip"
+            android:layout_height="25dip"
+            android:layout_marginRight="10dp"
+            android:layout_alignTop="@+id/tvUser_name"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/layout_image2" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_personal_usernick"
+        android:background="@color/white"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+        <TextView
+            android:id="@+id/tvNick"
+            android:text="昵称"
+            android:textSize="20sp"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tvUser_Nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="李小胖"
+            android:textSize="20sp"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/layout_image3" />
+        <ImageView
+            android:id="@+id/layout_image3"
+            android:src="@drawable/right_arrow_icon"
+            android:layout_width="25dip"
+            android:layout_height="25dip"
+            android:layout_marginRight="10dp"
+            android:layout_alignTop="@+id/tvNick"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_marginTop="245dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/bt_loginout"
+            android:text="退出登录"
+            android:textSize="20sp"
+            android:background="#FF3333"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal" />
+    </RelativeLayout>
+
+</LinearLayout>
