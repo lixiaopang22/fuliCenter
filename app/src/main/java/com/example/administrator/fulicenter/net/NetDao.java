@@ -86,8 +86,6 @@ public class NetDao {
                 .addParam(I.User.PASSWORD,MD5.getMessageDigest(password))
                 .targetClass(String.class)
                 .execute(listener);
-
-
-
     }
+
 }

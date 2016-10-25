@@ -71,7 +71,19 @@ public class PersonalCenterFragment extends BaseFragment {
 
     }
 
-    @OnClick(R.id.tv_center_settings)
+    @Override
+    public void onResume() {
+        super.onResume();
+        User user = FuLiCenterApplication.getUser();
+        L.e(TAG,"user"+user);
+        if(user!=null){
+            ImageLoader.setAvatar(ImageLoader.getAvatarUrl(user),mContext,ivUserAvatar);
+            tvUserName.setText(user.getMuserNick());
+        }
+    }
+
+    @OnClick({R.id.tv_center_settings,R.id.center_user_info})
     public void onClick() {
+        MFGT.gotoSetting(mContext);
     }
 }

@@ -140,13 +140,16 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        if(index==4 && FuLiCenterApplication.getUser()==null){
+            index=0;
+        }
         setFragment();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode== I.REQUEST_CODE_LOGIN&&FuLiCenterApplication.getUser()!=null){
+        if(requestCode== I.REQUEST_CODE_LOGIN && FuLiCenterApplication.getUser()!=null){
             index=4;
         }
     }
