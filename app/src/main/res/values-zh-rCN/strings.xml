@@ -23,4 +23,10 @@
     <string name="login">登录</string>
     <string name="user_database_error">数据库操作异常</string>
     <string name="user_profile">个人资料</string>
+    <string name="update_user_nick">修改昵称</string>
+    <string name="update_nick_fail_modify">没有修改</string>
+    <string name="update_fail">修改失败</string>
+    <string name="nick_name_fail_unmodify">昵称未修改</string>
+    <string name="update_success">修改成功</string>
+    <string name="update_user_nick_success">修改昵称成功</string>
 </resources>

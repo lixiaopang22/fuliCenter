@@ -11,6 +11,7 @@ import com.example.administrator.fulicenter.activity.GoodsDetailActivity;
 import com.example.administrator.fulicenter.activity.LoginActivity;
 import com.example.administrator.fulicenter.activity.MainActivity;
 import com.example.administrator.fulicenter.activity.RegisterActivity;
+import com.example.administrator.fulicenter.activity.UpdateNickActivity;
 import com.example.administrator.fulicenter.activity.UserProfileActivity;
 import com.example.administrator.fulicenter.bean.BoutiqueBean;
 import com.example.administrator.fulicenter.bean.CategoryChildBean;
@@ -71,5 +72,8 @@ public class MFGT {
     }
     public static void gotoSetting(Activity context){
         startActivity(context, UserProfileActivity.class);
+    }
+    public static void gotoUpdateNick(Activity context){
+        startActivityForResult(context,new Intent(context, UpdateNickActivity.class),I.REQUEST_CODE_NICK);
     }
 }

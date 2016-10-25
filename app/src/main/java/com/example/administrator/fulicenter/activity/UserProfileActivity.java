@@ -1,5 +1,6 @@
 package com.example.administrator.fulicenter.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -9,6 +10,8 @@ import com.example.administrator.fulicenter.FuLiCenterApplication;
 import com.example.administrator.fulicenter.R;
 import com.example.administrator.fulicenter.bean.User;
 import com.example.administrator.fulicenter.dao.SharedPreferenceUtils;
+import com.example.administrator.fulicenter.utils.CommonUtils;
+import com.example.administrator.fulicenter.utils.I;
 import com.example.administrator.fulicenter.utils.ImageLoader;
 import com.example.administrator.fulicenter.utils.MFGT;
 import com.example.administrator.fulicenter.view.DisplayUtils;
@@ -44,14 +47,11 @@ public class UserProfileActivity extends BaseActivity {
     @Override
     protected void initData() {
         user = FuLiCenterApplication.getUser();
-        if(user!=null){
-            ImageLoader.setAvatar(ImageLoader.getAvatarUrl(user),mContext,ivUserImage);
-            tvUsername.setText(user.getMuserName());
-            tvUserNickname.setText(user.getMuserNick());
-
-        }else{
-           finish();
+        if(user==null){
+            finish();
+            return;
         }
+        showInfo();
     }
 
     @Override
@@ -65,8 +65,10 @@ public class UserProfileActivity extends BaseActivity {
             case R.id.rl_personal_useravatar:
                 break;
             case R.id.rl_personal_username:
+                CommonUtils.showLongToast(R.string.user_name_cannot_be_modify);
                 break;
             case R.id.rl_personal_usernick:
+                MFGT.gotoUpdateNick(mContext);
                 break;
             case R.id.bt_loginout:
                 logout();
@@ -82,4 +84,28 @@ public class UserProfileActivity extends BaseActivity {
         }
         finish();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        showInfo();
+    }
+
+    private void showInfo(){
+        user = FuLiCenterApplication.getUser();
+        if(user!=null){
+            ImageLoader.setAvatar(ImageLoader.getAvatarUrl(user),mContext,ivUserImage);
+            tvUsername.setText(user.getMuserName());
+            tvUserNickname.setText(user.getMuserNick());
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==RESULT_OK && resultCode== I.REQUEST_CODE_NICK){
+            CommonUtils.showLongToast(R.string.update_user_nick_success);
+        }
+    }
+
 }

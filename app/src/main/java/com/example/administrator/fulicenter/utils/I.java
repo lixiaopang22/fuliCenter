@@ -15,6 +15,7 @@ public interface I {
 
     int REQUEST_CODE_REGISTER=101;
     int REQUEST_CODE_LOGIN=102;
+    int REQUEST_CODE_NICK=103;
 
     /** 表示列表项布局的两种类型*/
     int TYPE_ITEM=0;
