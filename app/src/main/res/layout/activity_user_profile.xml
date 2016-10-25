@@ -98,10 +98,10 @@
             android:layout_alignParentEnd="true" />
     </RelativeLayout>
     <RelativeLayout
-        android:layout_marginTop="245dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Button
+            android:layout_alignParentBottom="true"
             android:id="@+id/bt_loginout"
             android:text="退出登录"
             android:textSize="20sp"
