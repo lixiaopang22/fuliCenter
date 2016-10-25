@@ -11,6 +11,8 @@ import com.example.administrator.fulicenter.bean.Result;
 import com.example.administrator.fulicenter.utils.I;
 import com.example.administrator.fulicenter.utils.MD5;
 
+import java.io.File;
+
 /**
  * Created by Administrator on 2016/10/17.
  */
@@ -93,6 +95,16 @@ public class NetDao {
                 .addParam(I.User.USER_NAME,username)
                 .addParam(I.User.NICK,nick)
                 .targetClass(String.class)
+                .execute(listener);
+    }
+    public static void updateAvatar(Context context, String username, File file, OkHttpUtils.OnCompleteListener<String> listener){
+        OkHttpUtils<String> utils=new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_UPDATE_AVATAR)
+                .addParam(I.AVATAR_TYPE,I.AVATAR_TYPE_USER_PATH)
+                .addParam(I.NAME_OR_HXID,username)
+                .addFile2(file)
+                .targetClass(String.class)
+                .post()
                 .execute(listener);
     }
 

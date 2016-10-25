@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_upload_avatar"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -19,11 +20,12 @@
             android:layout_width="80dp"
             android:layout_height="wrap_content" />
         <ImageView
-            android:id="@+id/ivUser_Image"
+            android:id="@+id/iv_user_avatar"
             android:src="@drawable/nopic"
             android:layout_width="80dip"
             android:layout_height="80dip"
-            android:layout_toStartOf="@+id/layout_image1" />
+            android:layout_toStartOf="@+id/layout_image1"
+            android:layout_toLeftOf="@+id/layout_image1" />
         <ImageView
             android:src="@drawable/right_arrow_icon"
             android:layout_width="25dip"
@@ -31,7 +33,8 @@
             android:layout_marginRight="10dp"
             android:layout_alignTop="@+id/tvUser_image"
             android:layout_alignParentEnd="true"
-            android:id="@+id/layout_image1" />
+            android:id="@+id/layout_image1"
+            android:layout_alignParentRight="true" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -55,7 +58,8 @@
             android:text="a1234567"
             android:textSize="20sp"
             android:layout_centerVertical="true"
-            android:layout_toStartOf="@+id/layout_image2" />
+            android:layout_toStartOf="@+id/layout_image2"
+            android:layout_toLeftOf="@+id/layout_image2" />
         <ImageView
             android:src="@drawable/right_arrow_icon"
             android:layout_width="25dip"
@@ -63,7 +67,8 @@
             android:layout_marginRight="10dp"
             android:layout_alignTop="@+id/tvUser_name"
             android:layout_alignParentEnd="true"
-            android:id="@+id/layout_image2" />
+            android:id="@+id/layout_image2"
+            android:layout_alignParentRight="true" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -87,7 +92,8 @@
             android:text="李小胖"
             android:textSize="20sp"
             android:layout_centerVertical="true"
-            android:layout_toStartOf="@+id/layout_image3" />
+            android:layout_toStartOf="@+id/layout_image3"
+            android:layout_toLeftOf="@+id/layout_image3" />
         <ImageView
             android:id="@+id/layout_image3"
             android:src="@drawable/right_arrow_icon"
@@ -95,7 +101,8 @@
             android:layout_height="25dip"
             android:layout_marginRight="10dp"
             android:layout_alignTop="@+id/tvNick"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true" />
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"

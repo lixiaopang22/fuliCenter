@@ -71,7 +71,7 @@ public class UpdateNickActivity extends BaseActivity {
             }
         }
     }
-
+    //更新昵称
     private void updateNick(String nick) {
         final ProgressDialog pd=new ProgressDialog(mContext);
         pd.setMessage(getResources().getString(R.string.update_user_nick));

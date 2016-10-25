@@ -37,4 +37,7 @@
     <string name="nick_name_fail_unmodify">昵称未修改</string>
     <string name="update_success">修改成功</string>
     <string name="update_user_nick_success">修改昵称成功</string>
+    <string name="update_user_avatar_fail">更新图像失败</string>
+    <string name="update_user_avatar">上传图像中...</string>
+    <string name="update_user_avatar_success">更新图像成功</string>
 </resources>
