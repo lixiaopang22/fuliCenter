@@ -2,12 +2,16 @@ package com.example.administrator.fulicenter.activity;
 
 import android.os.Bundle;
 import android.webkit.WebView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.administrator.fulicenter.FuLiCenterApplication;
 import com.example.administrator.fulicenter.R;
 import com.example.administrator.fulicenter.bean.AlbumsBean;
 import com.example.administrator.fulicenter.bean.GoodsDetailsBean;
+import com.example.administrator.fulicenter.bean.MessageBean;
+import com.example.administrator.fulicenter.bean.User;
 import com.example.administrator.fulicenter.net.NetDao;
 import com.example.administrator.fulicenter.net.OkHttpUtils;
 import com.example.administrator.fulicenter.utils.CommonUtils;
@@ -39,9 +43,14 @@ public class GoodsDetailActivity extends BaseActivity {
     FlowIndicator indicator;
     @BindView(R.id.wvGoodBrief)
     WebView wvGoodBrief;
+    @BindView(R.id.ivGoodCollect)
+    ImageView ivGoodCollect;
+
 
     int goodsId;
     GoodsDetailActivity mContext;
+    boolean isColleted = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +73,16 @@ public class GoodsDetailActivity extends BaseActivity {
     @Override
     protected void initView() {
 
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isCollected();
+    }
+
+    @OnClick(R.id.backClickArea)
+    public void onClick() {
+        MFGT.finish(this);
     }
 
     @Override
@@ -116,8 +135,80 @@ public class GoodsDetailActivity extends BaseActivity {
         return urls;
     }
 
-    @OnClick(R.id.backClickArea)
-    public void onClick() {
-        MFGT.finish(this);
+    private void updateStatus() {
+        if (isColleted) {
+            ivGoodCollect.setImageResource(R.mipmap.bg_collect_out);
+        } else {
+            ivGoodCollect.setImageResource(R.mipmap.bg_collect_in);
+        }
+    }
+
+
+    @OnClick(R.id.ivGoodCollect)
+    public void onCollected(){
+        User user = FuLiCenterApplication.getUser();
+        if(user==null){
+            MFGT.gotoLogin(mContext);
+        }else{
+            if(isColleted){
+                NetDao.deleteCollect(mContext, user.getMuserName(), goodsId, new OkHttpUtils.OnCompleteListener<MessageBean>() {
+                    @Override
+                    public void onSuccess(MessageBean result) {
+                        if(result!=null && result.isSuccess()){
+                            isColleted=!isColleted;
+                            updateStatus();
+                            CommonUtils.showLongToast(result.getMsg());
+                        }else{
+
+                        }
+                    }
+
+                    @Override
+                    public void onError(String error) {
+
+                    }
+                });
+            }
+            else{
+                NetDao.addCollect(mContext, user.getMuserName(), goodsId, new OkHttpUtils.OnCompleteListener<MessageBean>() {
+                    @Override
+                    public void onSuccess(MessageBean result) {
+                        if(result!=null && result.isSuccess()){
+                            isColleted=!isColleted;
+                            updateStatus();
+                            CommonUtils.showLongToast(result.getMsg());
+                        }
+                    }
+
+                    @Override
+                    public void onError(String error) {
+
+                    }
+                });
+            }
+        }
+    }
+    private void isCollected() {
+        User user = FuLiCenterApplication.getUser();
+        if (user != null) {
+            NetDao.isColected(mContext, user.getMuserName(), goodsId, new OkHttpUtils.OnCompleteListener<MessageBean>() {
+                @Override
+                public void onSuccess(MessageBean result) {
+                    if (result != null && result.isSuccess()) {
+                        isColleted = true;
+                    }else{
+                        isColleted=false;
+                    }
+                    updateStatus();
+                }
+
+                @Override
+                public void onError(String error) {
+                    isColleted=false;
+                    updateStatus();
+                }
+            });
+        }
+        updateStatus();
     }
 }

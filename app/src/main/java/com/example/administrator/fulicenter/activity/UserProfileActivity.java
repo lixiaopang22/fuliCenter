@@ -142,6 +142,7 @@ public class UserProfileActivity extends BaseActivity {
             @Override
             public void onSuccess(String str) {
                 Result result = ResultUtils.getResultFromJson(str, User.class);
+                L.e("result"+result);
                 if (result == null) {
                     CommonUtils.showLongToast(R.string.update_user_avatar_fail);
                 } else {
@@ -156,7 +157,6 @@ public class UserProfileActivity extends BaseActivity {
                 }
                 pd.dismiss();
             }
-
             @Override
             public void onError(String error) {
                 pd.dismiss();

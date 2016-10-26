@@ -7,6 +7,7 @@ import android.content.Intent;
 import com.example.administrator.fulicenter.R;
 import com.example.administrator.fulicenter.activity.BoutiqueChildActivity;
 import com.example.administrator.fulicenter.activity.CategoryChildActivity;
+import com.example.administrator.fulicenter.activity.CollectsActivity;
 import com.example.administrator.fulicenter.activity.GoodsDetailActivity;
 import com.example.administrator.fulicenter.activity.LoginActivity;
 import com.example.administrator.fulicenter.activity.MainActivity;
@@ -75,5 +76,8 @@ public class MFGT {
     }
     public static void gotoUpdateNick(Activity context){
         startActivityForResult(context,new Intent(context, UpdateNickActivity.class),I.REQUEST_CODE_NICK);
+    }
+    public static void gotoCollect(Activity context){
+        startActivity(context,CollectsActivity.class);
     }
 }

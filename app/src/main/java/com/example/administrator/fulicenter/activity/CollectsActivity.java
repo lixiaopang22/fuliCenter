@@ -7,29 +7,31 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.administrator.fulicenter.FuLiCenterApplication;
 import com.example.administrator.fulicenter.R;
-import com.example.administrator.fulicenter.adapter.GoodsAdapter;
-import com.example.administrator.fulicenter.bean.BoutiqueBean;
-import com.example.administrator.fulicenter.bean.NewGoodsBean;
+import com.example.administrator.fulicenter.adapter.CollectsAdapter;
+import com.example.administrator.fulicenter.bean.CollectBean;
+import com.example.administrator.fulicenter.bean.User;
 import com.example.administrator.fulicenter.net.NetDao;
 import com.example.administrator.fulicenter.net.OkHttpUtils;
 import com.example.administrator.fulicenter.utils.CommonUtils;
 import com.example.administrator.fulicenter.utils.ConvertUtils;
 import com.example.administrator.fulicenter.utils.I;
 import com.example.administrator.fulicenter.utils.L;
-import com.example.administrator.fulicenter.utils.MFGT;
+import com.example.administrator.fulicenter.view.DisplayUtils;
 import com.example.administrator.fulicenter.view.SpaceItemDecoration;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
-public class BoutiqueChildActivity extends BaseActivity {
+public class CollectsActivity extends BaseActivity {
 
-    @BindView(R.id.tvCommonHeadTitle)
-    TextView tvCommonHeadTitle;
+    CollectsActivity mContext;
+    CollectsAdapter cAdapter;
+    ArrayList<CollectBean> mList;
+    GridLayoutManager manager;
     @BindView(R.id.tvFresh)
     TextView tvFresh;
     @BindView(R.id.recycleView)
@@ -37,43 +39,34 @@ public class BoutiqueChildActivity extends BaseActivity {
     @BindView(R.id.srl)
     SwipeRefreshLayout srl;
 
-    GoodsAdapter gAdapter;
-    BoutiqueChildActivity mContext;
-    ArrayList<NewGoodsBean> mList;
-    GridLayoutManager manager;
-    BoutiqueBean boutique;
     int pageId=1;
+    User user=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_category_child);
+        setContentView(R.layout.activity_collects);
         ButterKnife.bind(this);
-        boutique = (BoutiqueBean) getIntent().getSerializableExtra(I.Boutique.CAT_ID);
-        if(boutique==null){
-            finish();
-        }
-        mContext=this;
+        mContext = this;
         mList=new ArrayList<>();
-        gAdapter=new GoodsAdapter(mContext,mList);
+        cAdapter=new CollectsAdapter(mContext,mList);
         super.onCreate(savedInstanceState);
     }
 
     @Override
     protected void initView() {
+        DisplayUtils.initBackWithTitle(mContext, getResources().getString(R.string.collects_title));
         srl.setColorSchemeColors(
                 getResources().getColor(R.color.google_blue),
                 getResources().getColor(R.color.google_green),
                 getResources().getColor(R.color.google_red),
                 getResources().getColor(R.color.google_yellow)
         );
-        manager=new GridLayoutManager(mContext, I.COLUM_NUM);
+        manager = new GridLayoutManager(mContext, I.COLUM_NUM);
         recycleView.setLayoutManager(manager);
         recycleView.setHasFixedSize(true);
-        recycleView.setAdapter(gAdapter);
+        recycleView.setAdapter(cAdapter);
         recycleView.addItemDecoration(new SpaceItemDecoration(12));
-        tvCommonHeadTitle.setText(boutique.getTitle());
     }
 
-    @Override
     protected void setListener() {
         setPullDownListener();
         setPullUpListener();
@@ -85,22 +78,23 @@ public class BoutiqueChildActivity extends BaseActivity {
             public void onRefresh() {
                 srl.setRefreshing(true);
                 tvFresh.setVisibility(View.VISIBLE);
-                pageId=1;
-                downloadNewGoods(I.ACTION_PULL_DOWN);
+                pageId = 1;
+                downloadCollects(I.ACTION_PULL_DOWN);
             }
         });
     }
+
     private void setPullUpListener() {
         recycleView.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 int lastPosition = manager.findLastVisibleItemPosition();
-                if(newState==RecyclerView.SCROLL_STATE_IDLE
-                        && lastPosition==gAdapter.getItemCount()-1
-                        && gAdapter.isMore()){
+                if (newState == RecyclerView.SCROLL_STATE_IDLE
+                        && lastPosition == cAdapter.getItemCount() - 1
+                        && cAdapter.isMore()) {
                     pageId++;
-                    downloadNewGoods(I.ACTION_PULL_UP);
+                    downloadCollects(I.ACTION_PULL_UP);
                 }
             }
 
@@ -108,31 +102,30 @@ public class BoutiqueChildActivity extends BaseActivity {
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 int firstPosition = manager.findFirstVisibleItemPosition();
-                srl.setEnabled(firstPosition==0);
+                srl.setEnabled(firstPosition == 0);
             }
         });
     }
 
-    private void downloadNewGoods(final int action) {
-        NetDao.downloadCollects(mContext,boutique.getId(), pageId, new OkHttpUtils.OnCompleteListener<NewGoodsBean[]>() {
+    private void downloadCollects(final int action) {
+        NetDao.downCollects(mContext, user.getMuserName(), pageId, new OkHttpUtils.OnCompleteListener<CollectBean[]>() {
             @Override
-            public void onSuccess(NewGoodsBean[] result) {
+            public void onSuccess(CollectBean[] result) {
                 srl.setRefreshing(false);
                 tvFresh.setVisibility(View.GONE);
-                gAdapter.setMore(true);
-                if(result!=null&&result.length>0){
-                    ArrayList<NewGoodsBean> array2List = ConvertUtils.array2List(result);
-                    if(action==I.ACTION_DOWNLOAD||action==I.ACTION_PULL_DOWN){
-                        gAdapter.initData(array2List);
-                    }else{
-                        gAdapter.addData(array2List);
+                cAdapter.setMore(true);
+                if (result != null && result.length > 0) {
+                    ArrayList<CollectBean> array2List = ConvertUtils.array2List(result);
+                    if (action == I.ACTION_DOWNLOAD || action == I.ACTION_PULL_DOWN) {
+                        cAdapter.initData(array2List);
+                    } else {
+                        cAdapter.addData(array2List);
                     }
-                    if(array2List.size()<I.PAGE_SIZE_DEFAULT){
-                        gAdapter.setMore(false);
+                    if (array2List.size() < I.PAGE_SIZE_DEFAULT) {
+                        cAdapter.setMore(false);
                     }
-                }
-                else {
-                    gAdapter.setMore(false);
+                } else {
+                    cAdapter.setMore(false);
                 }
             }
 
@@ -140,19 +133,25 @@ public class BoutiqueChildActivity extends BaseActivity {
             public void onError(String error) {
                 srl.setRefreshing(false);
                 tvFresh.setVisibility(View.GONE);
-                gAdapter.setMore(true);
+                cAdapter.setMore(true);
                 CommonUtils.showLongToast(error);
-                L.e("error:"+error);
+                L.e("error:" + error);
             }
         });
     }
+
     @Override
     protected void initData() {
-        downloadNewGoods(I.ACTION_DOWNLOAD);
+        user= FuLiCenterApplication.getUser();
+        if(user==null){
+            finish();
+        }
+        downloadCollects(I.ACTION_DOWNLOAD);
     }
 
-    @OnClick(R.id.backClickArea)
-    public void onClick() {
-        MFGT.finish(this);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initData();
     }
 }

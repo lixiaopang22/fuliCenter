@@ -32,4 +32,7 @@
     <string name="update_user_avatar_fail">上传图像失败</string>
     <string name="update_user_avatar">上传图像中...</string>
     <string name="update_user_avatar_success">上传图像成功</string>
+    <string name="collects_title">收藏de宝贝</string>
+    <string name="collect_success">收藏成功</string>
+    <string name="collect_fail">取消收藏</string>
 </resources>
