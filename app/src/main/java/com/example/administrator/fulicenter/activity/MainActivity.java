@@ -40,6 +40,7 @@ public class MainActivity extends BaseActivity {
     NewGoodsFragment mNewGoodsFragment;
     BoutiqueFragment mBoutiqueFragment;
     CategoryFragment mCategoryFragment;
+    CartFragment mCartFragment;
     PersonalCenterFragment mPersonalCenterFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,10 +55,12 @@ public class MainActivity extends BaseActivity {
         mNewGoodsFragment=new NewGoodsFragment();
         mBoutiqueFragment=new BoutiqueFragment();
         mCategoryFragment=new CategoryFragment();
+        mCartFragment=new CartFragment();
         mPersonalCenterFragment=new PersonalCenterFragment();
         mFragment[0]=mNewGoodsFragment;
         mFragment[1]=mBoutiqueFragment;
         mFragment[2]=mCategoryFragment;
+        mFragment[3]=mCartFragment;
         mFragment[4]=mPersonalCenterFragment;
         getSupportFragmentManager()
                 .beginTransaction()
@@ -101,7 +104,11 @@ public class MainActivity extends BaseActivity {
                 index=2;
                 break;
             case R.id.Cart :
-                index=3;
+                if(FuLiCenterApplication.getUser()==null){
+                    MFGT.gotoCartLogin(this);
+                }else {
+                    index = 3;
+                }
                 break;
             case R.id.Center :
                 if(FuLiCenterApplication.getUser()==null){
@@ -149,8 +156,10 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode== I.REQUEST_CODE_LOGIN && FuLiCenterApplication.getUser()!=null){
+        if(requestCode== I.REQUEST_CODE_LOGIN ){
             index=4;
+        }if(requestCode==I.REQUEST_CODE_CART_LOGIN){
+            index=3;
         }
     }
 }
