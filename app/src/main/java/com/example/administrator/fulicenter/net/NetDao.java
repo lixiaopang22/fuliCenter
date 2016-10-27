@@ -3,6 +3,7 @@ package com.example.administrator.fulicenter.net;
 import android.content.Context;
 
 import com.example.administrator.fulicenter.bean.BoutiqueBean;
+import com.example.administrator.fulicenter.bean.CartBean;
 import com.example.administrator.fulicenter.bean.CategoryChildBean;
 import com.example.administrator.fulicenter.bean.CategoryGroupBean;
 import com.example.administrator.fulicenter.bean.CollectBean;
@@ -153,6 +154,32 @@ public class NetDao {
         utils.setRequestUrl(I.REQUEST_ADD_COLLECT)
                 .addParam(I.Collect.USER_NAME,username)
                 .addParam(I.Collect.GOODS_ID,String.valueOf(goodsId))
+                .targetClass(MessageBean.class)
+                .execute(listener);
+    }
+    public static void downloadCart(Context context, String username, OkHttpUtils.OnCompleteListener<CartBean[]> listener){
+        OkHttpUtils<CartBean[]> utils=new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_FIND_CARTS)
+                .addParam(I.Cart.USER_NAME,username)
+                .targetClass(CartBean[].class)
+                .execute(listener);
+    }
+
+    public static void updateCartCount(Context mContext, int id, int count, OkHttpUtils.OnCompleteListener<MessageBean> listener) {
+        OkHttpUtils<MessageBean> utils=new OkHttpUtils<>(mContext);
+        utils.setRequestUrl(I.REQUEST_UPDATE_CART)
+                .addParam(I.Cart.ID,String.valueOf(id))
+                .addParam(I.Cart.COUNT,String.valueOf(count))
+                .addParam(I.Cart.IS_CHECKED,String.valueOf(I.CHECKED_CART_DEFAULT))
+                .targetClass(MessageBean.class)
+                .execute(listener);
+    }
+
+    public static void deleteCartGoods(Context mContext, int id, OkHttpUtils.OnCompleteListener<MessageBean> listener) {
+        OkHttpUtils<MessageBean> utils=new OkHttpUtils<>(mContext);
+        utils.setRequestUrl(I.REQUEST_UPDATE_CART)
+                .addParam(I.Cart.ID,String.valueOf(id))
+                .addParam(I.Cart.IS_CHECKED,String.valueOf(I.CHECKED_CART_DEFAULT))
                 .targetClass(MessageBean.class)
                 .execute(listener);
     }
