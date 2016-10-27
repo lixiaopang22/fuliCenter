@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_toRightOf="@+id/ivCategoryGroup"
-        android:textSize="25sp"
+        android:textSize="20sp"
         android:text="饰品"
         android:layout_centerVertical="true"/>
     <ImageView
@@ -29,5 +29,6 @@
         android:src="@mipmap/expand_on"
         android:layout_marginRight="20dp"
         android:layout_centerVertical="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true" />
 </RelativeLayout>

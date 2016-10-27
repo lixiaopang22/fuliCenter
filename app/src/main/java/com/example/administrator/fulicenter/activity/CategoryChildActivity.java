@@ -61,7 +61,7 @@ public class CategoryChildActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_category);
+        setContentView(R.layout.activity_category_child);
         ButterKnife.bind(this);
         mContext = this;
         mList = new ArrayList<>();
