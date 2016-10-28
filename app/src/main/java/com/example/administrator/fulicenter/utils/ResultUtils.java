@@ -75,7 +75,6 @@ public class ResultUtils {
         }
         return  null;
     }
-
     public static <T> Result getListResultFromJson(String jsonStr,Class<T> clazz){
         Result result = new Result();
         Log.e("Utils","jsonStr="+jsonStr);

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+    <include layout="@layout/common_title"/>
+    <RelativeLayout
+        android:background="@color/white"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <CheckBox
+            android:layout_marginLeft="20dp"
+            android:id="@+id/cb_cart_select"
+            style="@style/CustomCheckboxTheme"
+            android:checked="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp" />
+        <ImageView
+            android:id="@+id/iv_cart_thumb"
+            android:src="@mipmap/goods_thumb"
+            android:layout_marginLeft="50dp"
+            android:layout_width="64dp"
+            android:layout_centerVertical="true"
+            android:layout_height="64dp" />
+        <TextView
+            android:id="@+id/tv_cart_good_name"
+            android:text="大衣大衣大衣大衣大衣"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/iv_cart_thumb"
+            android:layout_toRightOf="@+id/iv_cart_thumb"
+            android:layout_toEndOf="@+id/iv_cart_thumb" />
+        <ImageView
+            android:id="@+id/iv_cart_add"
+            android:src="@mipmap/add_cart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/iv_cart_thumb"
+            android:layout_toEndOf="@+id/iv_cart_thumb" />
+        <TextView
+            android:id="@+id/tv_cart_count"
+            android:text="(1)"
+            android:textSize="16sp"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/iv_cart_add"
+            android:layout_centerHorizontal="true" />
+        <ImageView
+            android:id="@+id/iv_cart_del"
+            android:src="@mipmap/del_cart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignBottom="@+id/tv_cart_count"
+            android:layout_alignRight="@+id/tv_cart_good_name"
+            android:layout_alignEnd="@+id/tv_cart_good_name" />
+        <TextView
+            android:id="@+id/tv_cart_price"
+            android:text="￥88.88"
+            android:textSize="18sp"
+            android:layout_marginRight="20dp"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/iv_cart_del"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+
+
+</LinearLayout>

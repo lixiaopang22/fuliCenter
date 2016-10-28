@@ -10,6 +10,7 @@ import android.widget.RadioButton;
 import com.example.administrator.fulicenter.FuLiCenterApplication;
 import com.example.administrator.fulicenter.R;
 import com.example.administrator.fulicenter.fragment.BoutiqueFragment;
+import com.example.administrator.fulicenter.fragment.CartFragment;
 import com.example.administrator.fulicenter.fragment.CategoryFragment;
 import com.example.administrator.fulicenter.fragment.NewGoodsFragment;
 import com.example.administrator.fulicenter.fragment.PersonalCenterFragment;

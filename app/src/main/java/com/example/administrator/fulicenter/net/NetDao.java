@@ -177,9 +177,8 @@ public class NetDao {
 
     public static void deleteCartGoods(Context mContext, int id, OkHttpUtils.OnCompleteListener<MessageBean> listener) {
         OkHttpUtils<MessageBean> utils=new OkHttpUtils<>(mContext);
-        utils.setRequestUrl(I.REQUEST_UPDATE_CART)
+        utils.setRequestUrl(I.REQUEST_DELETE_CART)
                 .addParam(I.Cart.ID,String.valueOf(id))
-                .addParam(I.Cart.IS_CHECKED,String.valueOf(I.CHECKED_CART_DEFAULT))
                 .targetClass(MessageBean.class)
                 .execute(listener);
     }

@@ -31,6 +31,8 @@ public class CartAdapter extends RecyclerView.Adapter {
     Context mContext;
     ArrayList<CartBean> mList;
 
+
+
     public CartAdapter(Context context, ArrayList<CartBean> list) {
         mContext = context;
 //        mList = new ArrayList<>();
@@ -56,7 +58,7 @@ public class CartAdapter extends RecyclerView.Adapter {
             ch.tvCardGoodsPrice.setText(goods.getCurrencyPrice());
         }
         ch.tvCardGoodsCount.setText("(" + mCartBean.getCount() + ")");
-        ch.cbCardChecked.setChecked(false);
+        ch.cbCardChecked.setChecked(mCartBean.isChecked());
         ch.cbCardChecked.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean b) {
@@ -107,15 +109,15 @@ public class CartAdapter extends RecyclerView.Adapter {
 
         @OnClick({R.id.iv_card_add, R.id.iv_card_del})
         public void onClick(View view) {
-            final int  postion = (int) rlLayoutCard.getTag();
+            final int postion = (int) rlLayoutCard.getTag();
             final CartBean cart = mList.get(postion);
             switch (view.getId()) {
                 case R.id.iv_card_add:
                     NetDao.updateCartCount(mContext, cart.getId(), cart.getCount(), new OkHttpUtils.OnCompleteListener<MessageBean>() {
                         @Override
                         public void onSuccess(MessageBean result) {
-                            if(result!=null && result.isSuccess()){
-                                mList.get(postion).setCount(mList.get(postion).getCount()+1);
+                            if (result != null && result.isSuccess()) {
+                                mList.get(postion).setCount(mList.get(postion).getCount() + 1);
                                 mContext.sendBroadcast(new Intent(I.CARD_UPDATE_BROADCAST));
                                 tvCardGoodsCount.setText("(" + mList.get(postion).getCount() + ")");
                             }
@@ -123,17 +125,17 @@ public class CartAdapter extends RecyclerView.Adapter {
 
                         @Override
                         public void onError(String error) {
-                            L.e("error="+error);
+                            L.e("error=" + error);
                         }
                     });
                     break;
                 case R.id.iv_card_del:
-                    if(cart.getCount()>1){
+                    if (cart.getCount() > 1) {
                         NetDao.updateCartCount(mContext, cart.getId(), cart.getCount(), new OkHttpUtils.OnCompleteListener<MessageBean>() {
                             @Override
                             public void onSuccess(MessageBean result) {
-                                if(result!=null && result.isSuccess()){
-                                    mList.get(postion).setCount(mList.get(postion).getCount()-1);
+                                if (result != null && result.isSuccess()) {
+                                    mList.get(postion).setCount(mList.get(postion).getCount() - 1);
                                     mContext.sendBroadcast(new Intent(I.CARD_UPDATE_BROADCAST));
                                     tvCardGoodsCount.setText("(" + mList.get(postion).getCount() + ")");
                                 }
@@ -141,14 +143,14 @@ public class CartAdapter extends RecyclerView.Adapter {
 
                             @Override
                             public void onError(String error) {
-                                L.e("error="+error);
+                                L.e("error=" + error);
                             }
                         });
-                    }else {
+                    } else {
                         NetDao.deleteCartGoods(mContext, cart.getId(), new OkHttpUtils.OnCompleteListener<MessageBean>() {
                             @Override
                             public void onSuccess(MessageBean result) {
-                                if(result!=null && result.isSuccess()){
+                                if (result != null && result.isSuccess()) {
                                     mList.remove(postion);
                                     mContext.sendBroadcast(new Intent(I.CARD_UPDATE_BROADCAST));
                                     notifyDataSetChanged();
@@ -157,7 +159,7 @@ public class CartAdapter extends RecyclerView.Adapter {
 
                             @Override
                             public void onError(String error) {
-                                L.e("error="+error);
+                                L.e("error=" + error);
                             }
                         });
                     }

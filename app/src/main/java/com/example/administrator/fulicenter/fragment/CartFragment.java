@@ -19,7 +19,7 @@ import android.widget.TextView;
 import com.example.administrator.fulicenter.FuLiCenterApplication;
 import com.example.administrator.fulicenter.R;
 import com.example.administrator.fulicenter.activity.MainActivity;
-import com.example.administrator.fulicenter.adapter.CardAdapter;
+import com.example.administrator.fulicenter.adapter.CartAdapter;
 import com.example.administrator.fulicenter.bean.CartBean;
 import com.example.administrator.fulicenter.bean.User;
 import com.example.administrator.fulicenter.net.NetDao;
@@ -39,8 +39,8 @@ import butterknife.OnClick;
 /**
  * Created by Administrator on 2016/10/19.
  */
-public class CardFragment extends BaseFragment {
-    private static final String TAG = CardFragment.class.getSimpleName();
+public class CartFragment extends BaseFragment {
+    private static final String TAG = CartFragment.class.getSimpleName();
     @BindView(R.id.tv_refresh)
     TextView tvRefresh;
     @BindView(R.id.rlv)
@@ -64,10 +64,10 @@ public class CardFragment extends BaseFragment {
 
     LinearLayoutManager mLinearLayoutManager;
     MainActivity mContext;
-    CardAdapter mAdapter;
+    CartAdapter mAdapter;
     ArrayList<CartBean> mList;
     UpdateCardPrice mUpdateCardPrice;
-    public CardFragment() {
+    public CartFragment() {
     }
 
     @Nullable
@@ -77,7 +77,7 @@ public class CardFragment extends BaseFragment {
         ButterKnife.bind(this, layout);
         mContext = (MainActivity) getContext();
         mList = new ArrayList<>();
-        mAdapter = new CardAdapter(mContext, mList);
+        mAdapter = new CartAdapter(mContext, mList);
         super.onCreateView(inflater, container, savedInstanceState);
 //        initView();
 //        initData();
@@ -142,6 +142,7 @@ public class CardFragment extends BaseFragment {
 
     @Override
     protected void initView() {
+
         sfl.setColorSchemeColors(getResources().getColor(R.color.google_blue),
                 getResources().getColor(R.color.google_yellow),
                 getResources().getColor(R.color.google_red),

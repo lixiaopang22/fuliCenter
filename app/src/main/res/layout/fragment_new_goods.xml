@@ -1,9 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.example.administrator.fulicenter.fragment.NewGoodsFragment">
+    android:orientation="vertical">
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/srl"
@@ -16,7 +14,7 @@
             android:orientation="vertical">
            <include layout="@layout/layout_refresh_title"/>
                 android:textStyle="bold" />
-            <android.support.v7.widget.RecyclerView
+             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycleView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
