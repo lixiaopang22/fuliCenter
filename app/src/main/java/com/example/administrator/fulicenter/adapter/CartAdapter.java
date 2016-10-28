@@ -20,6 +20,7 @@ import com.example.administrator.fulicenter.net.OkHttpUtils;
 import com.example.administrator.fulicenter.utils.I;
 import com.example.administrator.fulicenter.utils.ImageLoader;
 import com.example.administrator.fulicenter.utils.L;
+import com.example.administrator.fulicenter.utils.MFGT;
 
 import java.util.ArrayList;
 
@@ -105,6 +106,12 @@ public class CartAdapter extends RecyclerView.Adapter {
         CardViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
+        }
+        @OnClick({R.id.iv_card_goods_image,R.id.tv_card_goods_price,R.id.iv_card_goodsName})
+        public void gotoDetail(){
+            final int postion = (int) rlLayoutCard.getTag();
+            final CartBean cart = mList.get(postion);
+            MFGT.goGoodsDetailActivity(mContext,cart.getGoodsId());
         }
 
         @OnClick({R.id.iv_card_add, R.id.iv_card_del})
