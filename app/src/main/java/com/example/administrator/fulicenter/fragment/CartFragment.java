@@ -28,6 +28,7 @@ import com.example.administrator.fulicenter.utils.CommonUtils;
 import com.example.administrator.fulicenter.utils.ConvertUtils;
 import com.example.administrator.fulicenter.utils.I;
 import com.example.administrator.fulicenter.utils.L;
+import com.example.administrator.fulicenter.utils.MFGT;
 import com.example.administrator.fulicenter.view.SpaceItemDecoration;
 
 import java.util.ArrayList;
@@ -62,6 +63,7 @@ public class CartFragment extends BaseFragment {
     @BindView(R.id.tv_card_nothing)
     TextView tvCardNothing;
 
+    String cartIds="";
     LinearLayoutManager mLinearLayoutManager;
     MainActivity mContext;
     CartAdapter mAdapter;
@@ -79,9 +81,6 @@ public class CartFragment extends BaseFragment {
         mList = new ArrayList<>();
         mAdapter = new CartAdapter(mContext, mList);
         super.onCreateView(inflater, container, savedInstanceState);
-//        initView();
-//        initData();
-//        setListener();
         return layout;
     }
 
@@ -163,14 +162,21 @@ public class CartFragment extends BaseFragment {
 
     @OnClick(R.id.bt_card_pay)
     public void onClick() {
+        if(cartIds!=null && cartIds.length()>0 && !cartIds.equals("")){
+            MFGT.gotoBuy(mContext,cartIds);
+        }else{
+            CommonUtils.showLongToast(R.string.order_nothing);
+        }
     }
 
     private void sumPrice() {
+        cartIds="";
         int sumPrice = 0;
         int ranPrice = 0;
         if (mList != null && mList.size() > 0) {
             for (CartBean c : mList) {
                 if (c.isChecked()) {
+                    cartIds+=c.getId()+",";
                     sumPrice += getPrice(c.getGoods().getCurrencyPrice()) * c.getCount();
                     L.e(TAG, "sumPrice=" + sumPrice);
                     ranPrice += getPrice(c.getGoods().getRankPrice()) * c.getCount();
@@ -180,7 +186,7 @@ public class CartFragment extends BaseFragment {
             tvCardGoodsPriceCount.setText(Double.valueOf(ranPrice) + "");
             tvCardSaveGoodsPriceCount.setText(Double.valueOf(sumPrice - ranPrice) + "");
         } else {
-            setCardLayout(false);
+            cartIds="";
             tvCardGoodsPriceCount.setText(String.valueOf(0));
             tvCardSaveGoodsPriceCount.setText(String.valueOf(0));
         }
@@ -206,5 +212,11 @@ public class CartFragment extends BaseFragment {
     public void onDestroy() {
         super.onDestroy();
         mContext.unregisterReceiver(mUpdateCardPrice);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initData();
     }
 }

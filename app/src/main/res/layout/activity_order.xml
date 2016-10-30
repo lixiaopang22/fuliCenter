@@ -139,17 +139,6 @@
             android:textColor="@color/cart_buy_bg"
             android:layout_marginTop="5dp"
             android:layout_centerHorizontal="true"/>
-        <TextView
-            android:id="@+id/tv_card_goods_price_Count"
-            android:layout_toRightOf="@id/tv_card_price_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0"
-            android:textSize="20sp"
-            android:layout_centerVertical="true"
-            android:textColor="@color/cart_buy_bg"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="5dp"/>
         <Button
             android:id="@+id/bt_card_pay"
             android:layout_width="wrap_content"

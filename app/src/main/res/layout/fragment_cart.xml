@@ -53,7 +53,7 @@
             android:text="合计: ¥"
             android:textSize="20sp"
             android:textColor="@color/cart_buy_bg"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="15dp"
             android:layout_centerHorizontal="true"/>
         <TextView
             android:id="@+id/tv_card_goods_price_Count"
@@ -63,7 +63,7 @@
             android:text="0"
             android:textSize="20sp"
             android:textColor="@color/cart_buy_bg"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="15dp"
             android:layout_marginLeft="5dp"/>
         <TextView
             android:id="@+id/tv_card_save_price_count"

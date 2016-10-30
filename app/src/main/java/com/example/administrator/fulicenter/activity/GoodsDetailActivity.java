@@ -52,7 +52,33 @@ public class GoodsDetailActivity extends BaseActivity {
     int goodsId;
     GoodsDetailActivity mContext;
     boolean isColleted = false;
+    @BindView(R.id.ivGoodCart)
+    ImageView ivGoodCart;
 
+    @OnClick(R.id.ivGoodCart)
+    public void addCart(){
+        User user = FuLiCenterApplication.getUser();
+        if(user!=null) {
+            NetDao.addCar(mContext, user.getMuserName(), goodsId, new OkHttpUtils.OnCompleteListener<MessageBean>() {
+                @Override
+                public void onSuccess(MessageBean result) {
+                    if(result!=null &&result.isSuccess()){
+                        CommonUtils.showLongToast(R.string.add_cart_sucess);
+                    }else{
+                        CommonUtils.showLongToast(R.string.add_cart_fail);
+                    }
+                }
+
+                @Override
+                public void onError(String error) {
+
+                }
+            });
+        }else{
+            MFGT.gotoLogin(mContext);
+        }
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +102,7 @@ public class GoodsDetailActivity extends BaseActivity {
     protected void initView() {
 
     }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -147,20 +174,20 @@ public class GoodsDetailActivity extends BaseActivity {
 
 
     @OnClick(R.id.ivGoodCollect)
-    public void onCollected(){
+    public void onCollected() {
         User user = FuLiCenterApplication.getUser();
-        if(user==null){
+        if (user == null) {
             MFGT.gotoLogin(mContext);
-        }else{
-            if(isColleted){
+        } else {
+            if (isColleted) {
                 NetDao.deleteCollect(mContext, user.getMuserName(), goodsId, new OkHttpUtils.OnCompleteListener<MessageBean>() {
                     @Override
                     public void onSuccess(MessageBean result) {
-                        if(result!=null && result.isSuccess()){
-                            isColleted=!isColleted;
+                        if (result != null && result.isSuccess()) {
+                            isColleted = !isColleted;
                             updateStatus();
                             CommonUtils.showLongToast(result.getMsg());
-                        }else{
+                        } else {
 
                         }
                     }
@@ -170,13 +197,12 @@ public class GoodsDetailActivity extends BaseActivity {
 
                     }
                 });
-            }
-            else{
+            } else {
                 NetDao.addCollect(mContext, user.getMuserName(), goodsId, new OkHttpUtils.OnCompleteListener<MessageBean>() {
                     @Override
                     public void onSuccess(MessageBean result) {
-                        if(result!=null && result.isSuccess()){
-                            isColleted=!isColleted;
+                        if (result != null && result.isSuccess()) {
+                            isColleted = !isColleted;
                             updateStatus();
                             CommonUtils.showLongToast(result.getMsg());
                         }
@@ -190,6 +216,7 @@ public class GoodsDetailActivity extends BaseActivity {
             }
         }
     }
+
     private void isCollected() {
         User user = FuLiCenterApplication.getUser();
         if (user != null) {
@@ -198,21 +225,22 @@ public class GoodsDetailActivity extends BaseActivity {
                 public void onSuccess(MessageBean result) {
                     if (result != null && result.isSuccess()) {
                         isColleted = true;
-                    }else{
-                        isColleted=false;
+                    } else {
+                        isColleted = false;
                     }
                     updateStatus();
                 }
 
                 @Override
                 public void onError(String error) {
-                    isColleted=false;
+                    isColleted = false;
                     updateStatus();
                 }
             });
         }
         updateStatus();
     }
+
     @OnClick(R.id.ivGoodShare)
     public void showShare() {
         ShareSDK.initSDK(this);

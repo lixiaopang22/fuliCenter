@@ -43,4 +43,8 @@
     <string name="collects_title">收藏de宝贝</string>
     <string name="collect_success">收藏成功</string>
     <string name="collect_fail">取消收藏</string>
+    <string name="add_cart_fail">添加购物车失败</string>
+    <string name="add_cart_sucess">添加购物车成功</string>
+    <string name="order_nothing">没有添加任何商品</string>
+    <string name="confirm_order">确认订单</string>
 </resources>

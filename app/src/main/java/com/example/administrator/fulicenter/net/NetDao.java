@@ -182,4 +182,15 @@ public class NetDao {
                 .targetClass(MessageBean.class)
                 .execute(listener);
     }
+    //像购物车添加商品
+    public static void addCar(Context context,String username,int goodsId,OkHttpUtils.OnCompleteListener<MessageBean> listener) {
+        OkHttpUtils<MessageBean> utils=new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_ADD_CART)
+                .addParam(I.Cart.GOODS_ID,String.valueOf(goodsId))
+                .addParam(I.Cart.USER_NAME,username)
+                .addParam(I.Cart.COUNT,String.valueOf(1))
+                .addParam(I.Cart.IS_CHECKED,String.valueOf(I.CHECKED_CART_DEFAULT))
+                .targetClass(MessageBean.class)
+                .execute(listener);
+    }
 }
